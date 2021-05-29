@@ -1,0 +1,116 @@
+﻿@model BiblotekaWeb.Areas.admin.Models.Libri
+
+@{
+    ViewData["Title"] = "Edito";
+}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Edito Libër</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-action="Index">Librat</a></li>
+                        <li class="breadcrumb-item active">Edito Libër</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form asp-action="Edito">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="form-title"><span>Informatat e Librit</span></h5>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>LibriId</label>
+                                        <input asp-for="LibriId" class="form-control">
+                                        <span asp-validation-for="LibriId"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Titulli</label>
+                                        <input asp-for="Titulli" class="form-control">
+                                        <span asp-validation-for="Titulli"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Autori</label>
+                                        <input asp-for="Autori" class="form-control">
+                                        <span asp-validation-for="Autori"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Botuesi</label>
+                                        <input asp-for="Botuesi" class="form-control">
+                                        <span asp-validation-for="Botuesi"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Gjuha</label>
+                                        <select asp-for="Gjuha" class="form-control">
+                                            <option>Selekto Gjuhen</option>
+                                            <option>Shqip</option>
+                                            <option>Anglisht</option>
+                                            <option>Turqisht</option>
+                                        </select>
+                                        <span asp-validation-for="Gjuha"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Kategoria</label>
+                                        <select asp-for="KategoriaId" asp-items="@(new SelectList(ViewBag.Kategorite, "KategoriaId", "Emertimi"))" class="form-control">
+                                            <option>Selekto Kategorinë</option>
+                                        </select>
+                                        <span asp-validation-for="KategoriaId"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Editioni</label>
+                                        <input asp-for="Editioni" min="0" class="form-control">
+                                        <span asp-validation-for="Editioni"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>NumriKopjeve</label>
+                                        <input asp-for="NumriKopjeve" min="0" class="form-control">
+                                        <span asp-validation-for="NumriKopjeve"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Statusi</label>
+                                        <select asp-for="Statusi" class="form-control">
+                                            <option>Aktiv</option>
+                                            <option>Joaktiv</option>
+                                        </select>
+                                        <span asp-validation-for="Statusi"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Edito</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

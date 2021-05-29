@@ -1,0 +1,95 @@
+﻿@model IEnumerable<BiblotekaWeb.Areas.admin.Models.Klienti>
+
+@{
+    ViewData["Title"] = "Klientët";
+}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Klientët</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home">Ballina</a></li>
+                        <li class="breadcrumb-item active">Klientët</li>
+                    </ul>
+                </div>
+                <div class="col-auto text-right float-right ml-auto">
+                    <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Shkarko</a>
+                    <a asp-action="Shto" asp-controller="Klienti" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-center mb-0 datatable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Emri</th>
+                                        <th>Mbiemri</th>
+                                        <th>Datalindjes</th>
+                                        <th>Gjinia</th>
+                                        <th>NumriPersonal</th>
+                                        <th>Adresa</th>
+                                        <th>Qyteti</th>
+                                        <th>Shteti</th>
+                                        <th>KodiPostal</th>
+                                        <th>Email</th>
+                                        <th class="text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        @foreach (var klient in Model)
+                                        {
+                                            <td>@klient.KlientiId</td>
+                                            <td>
+                                                <h2>
+                                                    <a>@klient.Emri @klient.Mbiemri</a>
+                                                </h2>
+                                            </td>
+                                            <td>@klient.Datalindjes</td>
+                                            @if (klient.Gjinia == "M")
+                                            {
+                                                <td>Mashkull</td>
+                                            }
+                                            else
+                                            {
+                                                <td>Femër</td>
+                                            }
+                                            <td>@klient.NrPersonal</td>
+                                            <td>@klient.NrKontaktues</td>
+                                            <td>@klient.Adresa</td>
+                                            <td>@klient.Qyteti</td>
+                                            <td>@klient.Shteti</td>
+                                            <td>@klient.KodiPostal</td>
+                                            <td>@klient.Emaili</td>
+                                            <td class="text-right">
+                                                <div class="actions">
+                                                    <a asp-action="Edito" asp-route-id="@klient.KlientiId" class="btn btn-sm bg-success-light mr-2">
+                                                        <i class="fas fa-pen"></i>
+                                                    </a>
+                                                    <a asp-action="Delete" asp-route-id="@klient.KlientiId" class="btn btn-sm bg-danger-light">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        }
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>Copyright © 2021 Menaxhimi Biblotekës.</p>
+    </footer>
+</div>

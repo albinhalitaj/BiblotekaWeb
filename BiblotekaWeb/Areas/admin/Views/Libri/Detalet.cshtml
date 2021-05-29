@@ -1,0 +1,78 @@
+﻿@model BiblotekaWeb.Areas.admin.Models.Libri
+
+@{
+    ViewData["Title"] = "Detalet";
+}
+
+<h1>Detalet</h1>
+
+<h4>Libri</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Detalet">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LibriId" class="control-label"></label>
+                <input asp-for="LibriId" class="form-control" />
+                <span asp-validation-for="LibriId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Titulli" class="control-label"></label>
+                <input asp-for="Titulli" class="form-control" />
+                <span asp-validation-for="Titulli" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Autori" class="control-label"></label>
+                <input asp-for="Autori" class="form-control" />
+                <span asp-validation-for="Autori" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Botuesi" class="control-label"></label>
+                <input asp-for="Botuesi" class="form-control" />
+                <span asp-validation-for="Botuesi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gjuha" class="control-label"></label>
+                <input asp-for="Gjuha" class="form-control" />
+                <span asp-validation-for="Gjuha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KategoriaId" class="control-label"></label>
+                <input asp-for="KategoriaId" class="form-control" />
+                <span asp-validation-for="KategoriaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Editioni" class="control-label"></label>
+                <input asp-for="Editioni" class="form-control" />
+                <span asp-validation-for="Editioni" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumriKopjeve" class="control-label"></label>
+                <input asp-for="NumriKopjeve" class="form-control" />
+                <span asp-validation-for="NumriKopjeve" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Isbn" class="control-label"></label>
+                <input asp-for="Isbn" class="form-control" />
+                <span asp-validation-for="Isbn" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Statusi" /> @Html.DisplayNameFor(model => model.Statusi)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Ruaj" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Kthehu te Lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

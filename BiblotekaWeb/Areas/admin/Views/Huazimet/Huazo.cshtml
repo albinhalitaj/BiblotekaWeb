@@ -1,0 +1,92 @@
+﻿@model BiblotekaWeb.Areas.admin.Models.Huazimi
+
+@{
+    ViewData["Title"] = "Huazo Libër";
+}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Huazo Libër</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-action="Index">Huazimet</a></li>
+                        <li class="breadcrumb-item active">Huazo Libër</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form asp-action="Huazo">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="form-title"><span>Informatat e Huazimit</span></h5>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>HuazimiId</label>
+                                        <input asp-for="HuazimiId" class="form-control">
+                                        <span asp-validation-for="HuazimiId"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>KlientiId</label>
+                                        <input asp-for="KlientiId" class="form-control">
+                                        <span asp-validation-for="KlientiId"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>LibriId</label>
+                                        <input asp-for="LibriId" class="form-control">
+                                        <span asp-validation-for="LibriId"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>NumriKopjeve</label>
+                                        <input asp-for="NumriKopjeve" min="0" class="form-control">
+                                        <span asp-validation-for="NumriKopjeve"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>DataHuazimit</label>
+                                        <input asp-for="DataHuazimi" type="date" class="form-control">
+                                        <span asp-validation-for="DataHuazimi"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>DataKthimit</label>
+                                        <input asp-for="DataKthimit" type="date" class="form-control">
+                                        <span asp-validation-for="DataKthimit"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Pershkrimi</label>
+                                        <input asp-for="Pershkrimi" class="form-control">
+                                        <span asp-validation-for="Pershkrimi"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Shto</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

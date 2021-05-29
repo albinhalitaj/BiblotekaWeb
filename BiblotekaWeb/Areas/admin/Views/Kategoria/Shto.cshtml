@@ -1,0 +1,57 @@
+﻿@model BiblotekaWeb.Areas.admin.Models.Kategorium
+
+@{
+    ViewData["Title"] = "Shto Kategori";
+}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Shto Kategori</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-action="Index">Kategoritë</a></li>
+                        <li class="breadcrumb-item active">Shto Kategori</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form asp-action="Shto">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="form-title"><span>Informatat e Kategorisë</span></h5>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Emertimi</label>
+                                        <input asp-for="Emertimi" class="form-control">
+                                        <span asp-validation-for="Emertimi"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Pershkrimi</label>
+                                        <input asp-for="Pershkrimi" class="form-control">
+                                        <span asp-validation-for="Pershkrimi"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Shto</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
