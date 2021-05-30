@@ -14,12 +14,12 @@ namespace BiblotekaWeb.Areas.admin.Controllers
     [Area("admin")]
     public class KlientiController : Controller
     {
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
         private readonly IKlientiService _klientiService;
         private readonly INotyfService _notyf;
-
         public KlientiController(IKlientiService klientiService,INotyfService notyf,IConfiguration configuration)
         {
+            
             Configuration = configuration;
             _klientiService = klientiService;
             _notyf = notyf;
@@ -58,9 +58,12 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edito(Klienti klienti)
+        public IActionResult Edito(string id, Klienti klienti)
         {
             if (!ModelState.IsValid) return View(klienti);
+            klienti.Lub = Convert.ToInt32(User.Claims.ElementAt(1).Value);
+            klienti.Lud = DateTime.Now;
+            klienti.KlientiId = id;
             _klientiService.PerditesoKlient(klienti);
             _notyf.Custom("Klienti u përditësua!", 5, "#FFBC53", "fa fa-check");
             return RedirectToAction(nameof(Index));
@@ -73,9 +76,8 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             {
                 return NotFound();
             }
-            _klientiService.DeleteKlient(id);
-            _notyf.Custom("Klienti u fshi!", 5, "#FFBC53", "fa fa-check");
-            return RedirectToAction(nameof(Index));
+            var status = _klientiService.DeleteKlient(id);
+            return Json(status);
         }
     }
 }

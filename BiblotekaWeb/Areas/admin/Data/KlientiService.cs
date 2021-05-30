@@ -35,10 +35,13 @@ namespace BiblotekaWeb.Areas.admin.Data
             _context.SaveChangesAsync();
         }
 
-        public void DeleteKlient(string id)
+        public bool DeleteKlient(string id)
         {
             var klienti = _context.Klientis.FirstOrDefault(x => x.KlientiId == id);
-            if (klienti!=null) _context.Klientis.Remove(klienti);
+            if (klienti == null) return false;
+            _context.Klientis.Remove(klienti);
+            _context.SaveChanges();
+            return true;
         }
     }
 }

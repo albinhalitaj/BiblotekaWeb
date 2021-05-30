@@ -9,6 +9,6 @@ namespace BiblotekaWeb.Areas.admin.Data
         void ShtoKlient(Klienti klienti);
         Klienti GetKlientById(string id);
         void PerditesoKlient(Klienti klienti);
-        void DeleteKlient(string id);
+        bool DeleteKlient(string id);
     }
 }
