@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -13,7 +14,11 @@ namespace BiblotekaWeb.Areas.admin.Models
         }
 
         public int GjuhaId { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Shkruani mertimin e gjuhes")]
+        [DataType(DataType.Text)]
         public string Emertimi { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Shkruani pershkrimin e gjuhes ")]
+        [DataType(DataType.Text)]
         public string Pershkrimi { get; set; }
         public int? InsertBy { get; set; }
         public DateTime? InsertDate { get; set; }
