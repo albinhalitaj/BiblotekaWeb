@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BiblotekaWeb.Areas.admin.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BiblotekaWeb.Areas.admin.Data
 {
@@ -15,14 +16,15 @@ namespace BiblotekaWeb.Areas.admin.Data
 
         public List<Libri> GetAllLibri()
         {
-
-            return _context.Libris.ToList();
+            return _context.Libris.Include(x=>x.Kategoria)
+                                .Include(x=>x.Gjuha)
+                                .ToList();
         }
 
         public void ShtoLibrin(Libri libri)
         {
-            _context.Libris.AddAsync(libri);
-            _context.SaveChangesAsync();
+            _context.Add(libri);
+            _context.SaveChanges();
         }
 
         public Libri GetLibriById(string id)

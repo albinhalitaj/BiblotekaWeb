@@ -21,17 +21,10 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <form asp-action="Shto">
+                        <form asp-action="Shto" enctype="multipart/form-data" method="post">
                             <div class="row">
-                                <div class="col-12">
                                     <h5 class="form-title"><span>Informatat e Librit</span></h5>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <div class="form-group">
-                                        <label>LibriId</label>
-                                        <input asp-for="LibriId" class="form-control">
-                                        <span asp-validation-for="LibriId"></span>
-                                    </div>
+                                <div class="col-12">
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
@@ -57,13 +50,10 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Gjuha</label>
-                                        <select asp-for="Gjuha" class="form-control">
+                                        <select asp-for="GjuhaId" asp-items="@(new SelectList(ViewBag.Gjuhet,"GjuhaId","Emertimi"))" class="form-control">
                                             <option>Selekto Gjuhen</option>
-                                            <option>Shqip</option>
-                                            <option>Anglisht</option>
-                                            <option>Turqisht</option>
                                         </select>
-                                        <span asp-validation-for="Gjuha"></span>
+                                        <span asp-validation-for="GjuhaId"></span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
@@ -77,6 +67,13 @@
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
+                                        <label>ISBN</label>
+                                        <input asp-for="Isbn" min="0" class="form-control">
+                                        <span asp-validation-for="Isbn"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
                                         <label>Editioni</label>
                                         <input asp-for="Editioni" min="0" class="form-control">
                                         <span asp-validation-for="Editioni"></span>
@@ -84,7 +81,7 @@
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
-                                        <label>NumriKopjeve</label>
+                                        <label>Sasia</label>
                                         <input asp-for="NumriKopjeve" min="0" class="form-control">
                                         <span asp-validation-for="NumriKopjeve"></span>
                                     </div>
@@ -93,10 +90,16 @@
                                     <div class="form-group">
                                         <label>Statusi</label>
                                         <select asp-for="Statusi" class="form-control">
-                                            <option>Aktiv</option>
-                                            <option>Joaktiv</option>
+                                            <option value="true">Aktiv</option>
+                                            <option value="false">Joaktiv</option>
                                         </select>
                                         <span asp-validation-for="Statusi"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <label>Foto</label>
+                                    <div class="input-group">
+                                        <input asp-for="Image" accept="image/*" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
                                     </div>
                                 </div>
                                 <div class="col-12">

@@ -1,42 +1,75 @@
-﻿using AspNetCoreHero.ToastNotification.Abstractions;
+﻿using System;
+using System.IO;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using BiblotekaWeb.Areas.admin.Data;
 using BiblotekaWeb.Areas.admin.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Threading.Tasks;
+using Dapper;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace BiblotekaWeb.Areas.admin.Controllers
 {
     [Area("admin")]
     public class LibriController : Controller
     {
+        private IConfiguration Config { get; }
+        private IWebHostEnvironment HostEnvironment { get; }
         private readonly ILibriService _libriService;
         private readonly INotyfService _notyfi;
         private readonly BiblotekaWebContext _webContext;
 
-        public LibriController(ILibriService libriService, INotyfService notyf,BiblotekaWebContext webContext)
+        public LibriController(ILibriService libriService, 
+                            INotyfService notyf,
+                            BiblotekaWebContext webContext,
+                            IConfiguration _config,
+                            IWebHostEnvironment hostEnvironment)
         {
+            Config = _config;
+            HostEnvironment = hostEnvironment;
             _libriService = libriService;
             _notyfi = notyf;
             _webContext = webContext;
         }
 
-        public IActionResult Index() 
+        public IActionResult Index()
+        {
+            var librat = _libriService.GetAllLibri();
+            return View(librat); 
+        }
+
+
+        [HttpGet]
+        public IActionResult Shto()
         {
             ViewBag.Kategorite = _webContext.Kategoria.ToList();
-             return View(_libriService.GetAllLibri()); 
-           
+            ViewBag.Gjuhet = _webContext.Gjuhas.ToList();
+            return View();
         }
-        
-        
-       
-        [HttpGet]
-        public IActionResult Shto() => View();
-
 
         [HttpPost]
-        public IActionResult Shto(Libri libri)
+        public async Task<IActionResult> Shto(Libri libri)
         {
-            if (!ModelState.IsValid) return View(libri);
+            var id = string.Empty;
+            await using (var con = new SqlConnection(Config.GetConnectionString("Conn")))
+            {
+                id = con.Query<string>("select dbo.LibriID()").FirstOrDefault();
+            }
+            var wwwRootPath = HostEnvironment.WebRootPath;
+            var fileName = libri.Titulli.ToLower() + DateTime.Now.ToString("ddMMyyyy");
+            var exts = Path.GetExtension(libri.Image.FileName);
+            fileName = fileName.Replace(" ", string.Empty) + exts;
+            var path = Path.Combine(wwwRootPath + "/Admin/img/bookImages", fileName);
+            await using (var fileStream = new FileStream(path, FileMode.Create))
+                await libri.Image.CopyToAsync(fileStream);
+            libri.ImageName = fileName;
+            libri.InsertBy = Convert.ToInt32(User.Claims.ElementAt(1).Value);
+            libri.LibriId = id;
+            libri.InsertDate = DateTime.Now;
             _libriService.ShtoLibrin(libri);
             _notyfi.Custom("Libri u shtua!", 5, "#FFBC53", "fa fa-check");
             return RedirectToAction(nameof(Index));

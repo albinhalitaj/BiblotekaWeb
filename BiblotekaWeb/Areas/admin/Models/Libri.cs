@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 
 #nullable disable
 
@@ -25,13 +27,15 @@ namespace BiblotekaWeb.Areas.admin.Models
         public int NumriKopjeve { get; set; }
         public bool Statusi { get; set; }
         public string ImageName { get; set; }
-        public string ImagePath { get; set; }
-        public string InsertBy { get; set; }
+        public int InsertBy { get; set; }
         public DateTime? InsertDate { get; set; }
         public int? Lub { get; set; }
         public int? Lun { get; set; }
         public DateTime? Lud { get; set; }
+        [NotMapped]
+        public IFormFile Image { get; set; }
 
+        
         public virtual Gjuha Gjuha { get; set; }
         public virtual Kategorium Kategoria { get; set; }
         public virtual ICollection<Aktiviteti> Aktivitetis { get; set; }

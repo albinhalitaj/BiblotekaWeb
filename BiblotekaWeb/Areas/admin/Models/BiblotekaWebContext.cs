@@ -298,9 +298,7 @@ namespace BiblotekaWeb.Areas.admin.Models
 
                 entity.Property(e => e.GjuhaId).HasColumnName("GjuhaID");
 
-                entity.Property(e => e.ImageName).HasMaxLength(1);
-
-                entity.Property(e => e.ImagePath).HasMaxLength(1);
+                entity.Property(e => e.ImageName).HasMaxLength(200);
 
                 entity.Property(e => e.InsertBy).HasMaxLength(50);
 

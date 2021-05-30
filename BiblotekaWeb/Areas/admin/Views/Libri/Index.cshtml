@@ -34,44 +34,55 @@
                                         <th>Autori</th>
                                         <th>Botuesi</th>
                                         <th>Gjuha</th>
-                                        <th>Departmenti</th>
                                         <th>Kategoria</th>
                                         <th>Editioni</th>
-                                        <th>NumriKopjeve</th>
                                         <th>ISBN</th>
+                                        <th>NumriKopjeve</th>
                                         <th>Statusi</th>
                                         <th class="text-right">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                        <td>LB0001</td>
+                                    @foreach (var liber in Model)
+                                    {
+                                        <td>@liber.LibriId</td>
                                         <td>
                                             <h2>
-                                                <a>Libri pare</a>
+                                                <a>@liber.Titulli</a>
                                             </h2>
                                         </td>
-                                        <td>syle sylani</td>
-                                        <td>dukagjini</td>
-                                        <td>shqipe</td>
-                                        <td>kategoria</td>
-                                        <td>1st edition</td>
-                                        <td>5</td>
-                                        <td>123456789</td>
-                                        <td>
-                                            <span class="badge badge-success">Aktiv</span>
-                                        </td>
+                                        <td>@liber.Autori</td>
+                                        <td>@liber.Botuesi</td>
+                                        <td>@liber.Gjuha.Emertimi</td>
+                                        <td>@liber.Kategoria.Emertimi</td>
+                                        <td>@liber.Editioni</td>
+                                        <td>@liber.Isbn</td>
+                                        <td>@liber.NumriKopjeve</td>
+                                        @if (liber.Statusi)
+                                        {
+                                            <td>
+                                                <span class="badge badge-success">Aktiv</span>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <span class="badge badge-danger">Joaktiv</span>
+                                            </td>
+                                        }
                                         <td class="text-right">
                                             <div class="actions">
-                                                <a href="#" class="btn btn-sm bg-success-light mr-2">
+                                                <a asp-action="Edito" asp-route-id="@liber.LibriId" class="btn btn-sm bg-success-light mr-2">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
-                                                <a href="#" class="btn btn-sm bg-danger-light">
+                                                <a asp-action="Delete" asp-route-id="@liber.LibriId" class="btn btn-sm bg-danger-light">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                             </div>
                                         </td>
-                                    </tr>
+                                    }
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
