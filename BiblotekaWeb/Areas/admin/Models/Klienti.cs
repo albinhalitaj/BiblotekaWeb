@@ -16,35 +16,31 @@ namespace BiblotekaWeb.Areas.admin.Models
         }
 
         public string KlientiId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Emrin")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
+
         public string Emri { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Mbiemrin")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         public string Mbiemri { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Datelindjen")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         [DataType(DataType.Date)]
         public DateTime Datalindjes { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Gjinen")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Selektoni Gjinen")]
         public string Gjinia { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani NrPersonal")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         public string NrPersonal { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani NrKontaktues")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         [Phone]
         public string NrKontaktues { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Adresen")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         public string Adresa { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Qytetit")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         public string Qyteti { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Shtetin")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         public string Shteti { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani KodinPostal")]
-        [DataType(DataType.PostalCode)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
+        
         public string KodiPostal { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Emailin")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         [EmailAddress]
         public string Emaili { get; set; }
         public int InsertBy { get; set; }
