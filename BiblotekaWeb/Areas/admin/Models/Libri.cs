@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 
 #nullable disable
 
@@ -45,8 +46,9 @@ namespace BiblotekaWeb.Areas.admin.Models
         [DataType(DataType.Text)]
         public bool Statusi { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem insertoni nje foto")]
-        [NotMapped]
         public string ImageName { get; set; }
+        [NotMapped]
+        public IFormFile Image { get; set; }
         public int InsertBy { get; set; }
         public DateTime? InsertDate { get; set; }
         public int? Lub { get; set; }
