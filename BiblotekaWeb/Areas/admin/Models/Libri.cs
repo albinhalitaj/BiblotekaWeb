@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -14,16 +15,35 @@ namespace BiblotekaWeb.Areas.admin.Models
             Huazimis = new HashSet<Huazimi>();
         }
 
+       
         public string LibriId { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Titullin")]
+        [DataType(DataType.Text)]
         public string Titulli { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Autorin")]
+        [DataType(DataType.Text)]
         public string Autori { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Botuesin")]
+        [DataType(DataType.Text)]
         public string Botuesi { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Gjuhen")]
+        [DataType(DataType.Text)]
         public int GjuhaId { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Kategorin")]
+        [DataType(DataType.Text)]
         public int KategoriaId { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani ISBN")]
         public string Isbn { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Edicionin")]
+        [DataType(DataType.Text)]
         public string Editioni { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Numrin e Kopjev")]
+        [DataType(DataType.Text)]
         public int NumriKopjeve { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Statusin")]
+        [DataType(DataType.Text)]
         public bool Statusi { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem insertoni nje foto")]
         public string ImageName { get; set; }
         public string ImagePath { get; set; }
         public string InsertBy { get; set; }
