@@ -27,8 +27,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             _context = context;
         }
 
-        [Route("")] 
-        [Route("admin")]
+        [Route("admin/")]
         [Route("admin/account")]
         [Route("admin/account/login")]
         [HttpGet]
@@ -81,6 +80,15 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         {
             await HttpContext.SignOutAsync();
             return Redirect("/admin");
+        }
+
+        [HttpGet]
+        [Route("admin/profili")]
+        public IActionResult Profili()
+        {
+            var id = Convert.ToInt32(User.Claims.ElementAt(1).Value);
+            var user = _context.Stafis.FirstOrDefault(x => x.StafiId == id);
+            return View(user);
         }
     }
 }
