@@ -16,7 +16,6 @@ using Microsoft.EntityFrameworkCore;
 namespace BiblotekaWeb.Areas.admin.Controllers
 {
     [Area("admin")]
-    [Route("admin")]
     public class AccountController : Controller
     {
         private INotyfService Notyf { get; }
@@ -28,8 +27,10 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             _context = context;
         }
 
-        [Route("account")]
-        [Route("account/login")]
+        [Route("")] 
+        [Route("admin")]
+        [Route("admin/account")]
+        [Route("admin/account/login")]
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
@@ -39,7 +40,6 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(nameof(Login));
         }
-        
         
         
         [HttpPost]
@@ -64,7 +64,9 @@ namespace BiblotekaWeb.Areas.admin.Controllers
                             new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                         var claimPrincipal = new ClaimsPrincipal(indentityPrincipal);
                         HttpContext.SignInAsync(claimPrincipal);
-                        return Redirect(!string.IsNullOrEmpty(returnUrl) ? returnUrl : "/admin/ballina");
+                        if (!string.IsNullOrEmpty(returnUrl))
+                            return LocalRedirect(returnUrl);
+                        return RedirectToAction("Index", "Ballina");
                     }
                     Notyf.Error("Llogaria juaj është joaktive!", 5);
                 }
