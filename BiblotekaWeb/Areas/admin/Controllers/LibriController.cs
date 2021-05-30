@@ -1,47 +1,77 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using BiblotekaWeb.Areas.admin.Data;
 using BiblotekaWeb.Areas.admin.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace BiblotekaWeb.Areas.admin.Controllers
 {
     [Area("admin")]
     public class LibriController : Controller
     {
-        public IActionResult Index()
+        private readonly ILibriService _libriService;
+        private readonly INotyfService _notyfi;
+        private readonly BiblotekaWebContext _webContext;
+
+        public LibriController(ILibriService libriService, INotyfService notyf,BiblotekaWebContext webContext)
         {
-            return View();
+            _libriService = libriService;
+            _notyfi = notyf;
+            _webContext = webContext;
         }
 
-        [HttpGet]
-        public IActionResult Shto()
+        public IActionResult Index() 
         {
-            return View();
+            ViewBag.Kategorite = _webContext.Kategoria.ToList();
+             return View(_libriService.GetAllLibri()); 
+           
         }
+        
+        
+       
+        [HttpGet]
+        public IActionResult Shto() => View();
+
 
         [HttpPost]
         public IActionResult Shto(Libri libri)
         {
-            var librat = new List<Libri>();
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(libri);
+            _libriService.ShtoLibrin(libri);
+            _notyfi.Custom("Libri u shtua!", 5, "#FFBC53", "fa fa-check");
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult Edito(string id)
+        {
+            if (id == null)
             {
-                librat.Add(libri);
+                return NotFound();
             }
-            return View();
+            var libri = _libriService.GetLibriById(id);
+            return View(libri);
         }
 
-
-        [HttpGet]
-        public IActionResult Detalet(string id)
+        [HttpPost]
+        public IActionResult Edito(Libri libri)
         {
-            return View();
+            if (!ModelState.IsValid) return View(libri);
+            _libriService.PerditesoLibrin(libri);
+            _notyfi.Custom("Klienti u përditësua!", 5, "#FFBC53", "fa fa-check");
+            return RedirectToAction(nameof(Index));
         }
 
-
-        [HttpGet]
-        public IActionResult Edito(int id)
+        [HttpPost]
+        public IActionResult Delete(string id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            _libriService.DeleteLibrin(id);
+            _notyfi.Custom("Libri u fshi!", 5, "#FFBC53", "fa fa-check");
+            return RedirectToAction(nameof(Index));
         }
     }
 }
