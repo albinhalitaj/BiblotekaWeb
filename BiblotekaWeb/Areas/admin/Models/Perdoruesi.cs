@@ -10,14 +10,14 @@ namespace BiblotekaWeb.Areas.admin.Models
     {
        
         public int PerdoruesiId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani ID e Stafit")]
+       
         public int StafiId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani ID e Rolit")]
+       
         public int RoliId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Username")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
+
         public string Username { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Passwordin")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         [DataType(DataType.Password)]
 
         public string Password { get; set; }

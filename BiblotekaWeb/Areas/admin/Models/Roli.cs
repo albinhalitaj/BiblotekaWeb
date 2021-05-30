@@ -15,11 +15,10 @@ namespace BiblotekaWeb.Areas.admin.Models
 
        
         public int RoliId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Emrin")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
+
         public string EmriRolit { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Pershkrimin")]
-        [DataType(DataType.Text)]
+        
         public string Pershkrimi { get; set; }
 
         public virtual ICollection<Perdoruesi> Perdoruesis { get; set; }

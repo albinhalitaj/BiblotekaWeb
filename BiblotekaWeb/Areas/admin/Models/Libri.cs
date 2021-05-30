@@ -19,34 +19,32 @@ namespace BiblotekaWeb.Areas.admin.Models
 
        
         public string LibriId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Titullin")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         public string Titulli { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Autorin")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
+
         public string Autori { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Botuesin")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
+
         public string Botuesi { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Gjuhen")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Selektoni Gjuhen")]
+        
         public int GjuhaId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Kategorin")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Selektoni Kategorin")]
+        
         public int KategoriaId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani ISBN")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         public string Isbn { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Edicionin")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
+
         public string Editioni { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Numrin e Kopjev")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         public int NumriKopjeve { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Statusin")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         public bool Statusi { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem insertoni nje foto")]
+        
         public string ImageName { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         [NotMapped]
         public IFormFile Image { get; set; }
         public int InsertBy { get; set; }

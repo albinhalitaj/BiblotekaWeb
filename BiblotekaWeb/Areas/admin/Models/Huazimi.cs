@@ -9,26 +9,22 @@ namespace BiblotekaWeb.Areas.admin.Models
     public partial class Huazimi
     {
         public int HuazimiId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Shtypni ID e e stafit")]
-        [DataType(DataType.Text)]
         public int StafiId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Shtypni ID e librit")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Selekto Librin")]
+        
         public string LibriId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Shtypni ID e klientit")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Selektoni Klientin")]
+    
         public string KlientiId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Shtypni numrin e kopjeve te librit")]
-        [DataType(DataType.Text)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         public int NumriKopjeve { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Shtypni daten e huazimit")]
-        [DataType(DataType.Date)]
+        
         public DateTime DataHuazimi { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Shtypni daten e kthimit")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Selekto daten e kthimit")]
         [DataType(DataType.Date)]
         public DateTime DataKthimit { get; set; }
         public bool Statusi { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Shtypni pershkrimin ")]
+      
         public string Pershkrimi { get; set; }
         public int? InsertBy { get; set; }
         public DateTime? InsertDate { get; set; }

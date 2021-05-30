@@ -14,11 +14,8 @@ namespace BiblotekaWeb.Areas.admin.Models
         }
 
         public int GjuhaId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Shkruani mertimin e gjuhes")]
-        [DataType(DataType.Text)]
+       
         public string Emertimi { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Shkruani pershkrimin e gjuhes ")]
-        [DataType(DataType.Text)]
         public string Pershkrimi { get; set; }
         
         public int? InsertBy { get; set; }
