@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -44,9 +45,9 @@ namespace BiblotekaWeb.Areas.admin.Models
         [DataType(DataType.Text)]
         public bool Statusi { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem insertoni nje foto")]
+        [NotMapped]
         public string ImageName { get; set; }
-        public string ImagePath { get; set; }
-        public string InsertBy { get; set; }
+        public int InsertBy { get; set; }
         public DateTime? InsertDate { get; set; }
         public int? Lub { get; set; }
         public int? Lun { get; set; }
