@@ -1,18 +1,26 @@
-﻿using AspNetCoreHero.ToastNotification.Abstractions;
+﻿using System;
+using System.Linq;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using BiblotekaWeb.Areas.admin.Data;
 using BiblotekaWeb.Areas.admin.Models;
+using Dapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace BiblotekaWeb.Areas.admin.Controllers
 {
     [Area("admin")]
     public class KlientiController : Controller
     {
+        public IConfiguration Configuration { get; }
         private readonly IKlientiService _klientiService;
         private readonly INotyfService _notyf;
 
-        public KlientiController(IKlientiService klientiService,INotyfService notyf)
+        public KlientiController(IKlientiService klientiService,INotyfService notyf,IConfiguration configuration)
         {
+            Configuration = configuration;
             _klientiService = klientiService;
             _notyf = notyf;
         }
@@ -26,7 +34,13 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         [HttpPost]
         public IActionResult Shto(Klienti klienti)
         {
+            var klientiId = string.Empty;
+            using (var con = new SqlConnection(Configuration.GetConnectionString("Conn")))
+                klientiId = con.Query<string>("select dbo.KlientiID()").FirstOrDefault();
             if (!ModelState.IsValid) return View(klienti);
+            klienti.KlientiId = klientiId;
+            klienti.InsertBy = Convert.ToInt32(User.Claims.ElementAt(1).Value);
+            klienti.InsertDate = DateTime.Now;
             _klientiService.ShtoKlient(klienti);
             _notyf.Custom("Klienti u shtua!", 5, "#FFBC53", "fa fa-check");
             return RedirectToAction(nameof(Index));

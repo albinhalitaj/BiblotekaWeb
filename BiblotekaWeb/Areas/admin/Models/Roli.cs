@@ -22,6 +22,6 @@ namespace BiblotekaWeb.Areas.admin.Models
         [DataType(DataType.Text)]
         public string Pershkrimi { get; set; }
 
-        public virtual ICollection<Perdoruesi> Perdoruesis { get; set; }
+        public virtual ICollection<Perdoruesi> Perdoruesis { get; }
     }
 }

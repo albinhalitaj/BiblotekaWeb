@@ -31,7 +31,6 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Emri</th>
-                                        <th>Mbiemri</th>
                                         <th>Datalindjes</th>
                                         <th>Gjinia</th>
                                         <th>NumriPersonal</th>
@@ -53,7 +52,7 @@
                                                     <a>@klient.Emri @klient.Mbiemri</a>
                                                 </h2>
                                             </td>
-                                            <td>@klient.Datalindjes</td>
+                                            <td>@klient.Datalindjes.ToString("d")</td>
                                             @if (klient.Gjinia == "M")
                                             {
                                                 <td>Mashkull</td>
@@ -63,7 +62,6 @@
                                                 <td>Femër</td>
                                             }
                                             <td>@klient.NrPersonal</td>
-                                            <td>@klient.NrKontaktues</td>
                                             <td>@klient.Adresa</td>
                                             <td>@klient.Qyteti</td>
                                             <td>@klient.Shteti</td>

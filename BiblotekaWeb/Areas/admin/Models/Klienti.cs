@@ -47,7 +47,7 @@ namespace BiblotekaWeb.Areas.admin.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Ju lutem shkruani Emailin")]
         [EmailAddress]
         public string Emaili { get; set; }
-        public string InsertBy { get; set; }
+        public int InsertBy { get; set; }
         public DateTime? InsertDate { get; set; }
         public int? Lub { get; set; }
         public int? Lun { get; set; }

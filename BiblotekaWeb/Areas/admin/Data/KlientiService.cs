@@ -20,8 +20,8 @@ namespace BiblotekaWeb.Areas.admin.Data
 
         public void ShtoKlient(Klienti klienti)
         {
-            _context.Klientis.AddAsync(klienti);
-            _context.SaveChangesAsync();
+            _context.Klientis.Add(klienti);
+            _context.SaveChanges();
         }
 
         public Klienti GetKlientById(string id)
