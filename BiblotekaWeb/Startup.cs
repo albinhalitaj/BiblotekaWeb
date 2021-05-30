@@ -24,7 +24,7 @@ namespace BiblotekaWeb
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -39,7 +39,8 @@ namespace BiblotekaWeb
             services.AddControllersWithViews();
             services.AddDbContext<BiblotekaWebContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Conn")));
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
             {
                 options.LoginPath = "/admin";
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(20);

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Shto Kategori";
 }
 
-<div class="page-wrapper">
+<div id="app" class="page-wrapper">
     <div class="content container-fluid">
         <div class="page-header">
             <div class="row align-items-center">
@@ -54,4 +54,6 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script src="~/Admin/js/main.js"></script>
 }

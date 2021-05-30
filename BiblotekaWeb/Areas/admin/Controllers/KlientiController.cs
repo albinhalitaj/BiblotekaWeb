@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AspNetCoreHero.ToastNotification.Abstractions;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using BiblotekaWeb.Areas.admin.Data;
 using BiblotekaWeb.Areas.admin.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace BiblotekaWeb.Areas.admin.Controllers
 {
@@ -24,27 +20,21 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         public IActionResult Index() => View(_klientiService.GetAllKlients());
 
         [HttpGet]
-        public IActionResult Shto()
-        {
-            return View();
-        }
+        public IActionResult Shto() => View();
 
 
         [HttpPost]
         public IActionResult Shto(Klienti klienti)
         {
-            if (ModelState.IsValid)
-            {
-                _klientiService.ShtoKlient(klienti);
-                _notyf.Custom("Klienti u shtua!", 5, "#FFBC53", "fa fa-check");
-                return RedirectToAction(nameof(Index));
-            }
-            return View(klienti);
+            if (!ModelState.IsValid) return View(klienti);
+            _klientiService.ShtoKlient(klienti);
+            _notyf.Custom("Klienti u shtua!", 5, "#FFBC53", "fa fa-check");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public IActionResult Edito(string id)
-        {
+        {       
             if (id == null)
             {
                 return NotFound();
@@ -56,13 +46,10 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         [HttpPost]
         public IActionResult Edito(Klienti klienti)
         {
-            if (ModelState.IsValid)
-            {
-                _klientiService.PerditesoKlient(klienti);
-                _notyf.Custom("Klienti u përditësua!", 5, "#FFBC53", "fa fa-check");
-                return RedirectToAction(nameof(Index));
-            }
-            return View(klienti);
+            if (!ModelState.IsValid) return View(klienti);
+            _klientiService.PerditesoKlient(klienti);
+            _notyf.Custom("Klienti u përditësua!", 5, "#FFBC53", "fa fa-check");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]

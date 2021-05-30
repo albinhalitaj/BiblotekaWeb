@@ -16,9 +16,10 @@ using Microsoft.EntityFrameworkCore;
 namespace BiblotekaWeb.Areas.admin.Controllers
 {
     [Area("admin")]
+    [Route("admin")]
     public class AccountController : Controller
     {
-        public INotyfService Notyf { get; }
+        private INotyfService Notyf { get; }
         private readonly BiblotekaWebContext _context;
 
         public AccountController(BiblotekaWebContext context,INotyfService notyf)
@@ -27,19 +28,20 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             _context = context;
         }
 
-        [Route("admin")]
-        [Route("admin/account")]
-        [Route("admin/account/login")]
+        [Route("account")]
+        [Route("account/login")]
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
-            if (User.Identity != null && User.Identity.IsAuthenticated)
+            if (User.Identity is {IsAuthenticated: true})
                 return Redirect("/admin/ballina");
             ViewBag.ReturnUrl = returnUrl;
             return View(nameof(Login));
         }
-
+        
+        
+        
         [HttpPost]
         public IActionResult Login(LoginViewModel model,string returnUrl)
         {
@@ -62,9 +64,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
                             new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                         var claimPrincipal = new ClaimsPrincipal(indentityPrincipal);
                         HttpContext.SignInAsync(claimPrincipal);
-                        if (!string.IsNullOrEmpty(returnUrl))
-                            return Redirect(returnUrl);
-                        return Redirect("/admin/ballina");
+                        return Redirect(!string.IsNullOrEmpty(returnUrl) ? returnUrl : "/admin/ballina");
                     }
                     Notyf.Error("Llogaria juaj është joaktive!", 5);
                 }
