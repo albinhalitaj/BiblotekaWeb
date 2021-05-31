@@ -38,10 +38,17 @@ namespace BiblotekaWeb.Areas.admin.Data
             _context.SaveChangesAsync();
         }
 
-        public void DeleteLibrin(string id)
+        public bool DeleteLibrin(string id)
         {
             var libri = _context.Libris.FirstOrDefault(x => x.LibriId == id);
-            if (libri != null) _context.Libris.Remove(libri);
+            var status = false;
+            if (libri != null)
+            {
+                _context.Libris.Remove(libri);
+                _context.SaveChanges();
+                status = true;
+            }
+            return status;
         }
     }
 }

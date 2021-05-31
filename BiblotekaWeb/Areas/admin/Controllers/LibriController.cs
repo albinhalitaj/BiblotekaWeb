@@ -115,9 +115,14 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             {
                 return NotFound();
             }
-            _libriService.DeleteLibrin(id);
-            _notyfi.Custom("Libri u fshi!", 5, "#FFBC53", "fa fa-check");
-            return RedirectToAction(nameof(Index));
+            var libri = _libriService.GetLibriById(id);
+            var imgName = libri.ImageName;
+            var result = _libriService.DeleteLibrin(id);
+            if (!result) return Json(result);
+            var wwwRootPath = HostEnvironment.WebRootPath;
+            var path = Path.Combine(wwwRootPath + "/Admin/img/bookImages", imgName);
+            if (System.IO.File.Exists(path)) System.IO.File.Delete(path);
+            return Json(result);
         }
     }
 }

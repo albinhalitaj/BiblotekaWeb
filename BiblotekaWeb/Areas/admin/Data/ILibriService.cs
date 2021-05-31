@@ -9,6 +9,6 @@ namespace BiblotekaWeb.Areas.admin.Data
         void ShtoLibrin(Libri libri);
         Libri GetLibriById(string id);
         void PerditesoLibrin(Libri libri);
-        void DeleteLibrin(string id);
+        bool DeleteLibrin(string id);
     }
 }
