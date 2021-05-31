@@ -30,8 +30,8 @@
                                 <i class="fas fa-user-graduate"></i>
                             </div>
                             <div class="db-info">
-                                <h3>106</h3>
-                                <h6>Studentë</h6>
+                                <h3>@ViewBag.Klientet</h3>
+                                <h6>Klientë</h6>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                                 <i class="fas fa-crown"></i>
                             </div>
                             <div class="db-info">
-                                <h3>50+</h3>
+                                <h3>@ViewBag.Librat</h3>
                                 <h6>Libra</h6>
                             </div>
                         </div>
@@ -167,25 +167,26 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Emri Plotë</th>
-                                        <th class="text-center">Datalindjes</th>
-                                        <th class="text-center">NrPersonal</th>
-                                        <th class="text-right">Gjinia</th>
+                                        <th class="text-center">Numri Personal</th>
+                                        <th class="text-center">Emaili</th>
+                                        <th class="text-right">Adresa</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
-                                    <tr>
-                                        <td class="text-nowrap">
-                                            <div>Kl0001</div>
-                                        </td>
-                                        <td class="text-nowrap">Albin Halitaj</td>
-                                        <td class="text-center">15-08-2001</td>
-                                        <td class="text-center">123456789</td>
-                                        <td class="text-right">
-                                            <div>M</div>
-                                        </td>
-                                    </tr>
-                                    
+                                    @foreach (var klient in Model.Klientet)
+                                    {
+                                        <tr>
+                                            <td class="text-nowrap">
+                                                <div>@klient.KlientiId</div>
+                                            </td>
+                                            <td class="text-nowrap">@klient.Emri @klient.Mbiemri</td>
+                                            <td class="text-center">@klient.NrPersonal</td>
+                                            <td class="text-center">@klient.Emaili</td>
+                                            <td class="text-right">
+                                                <div>@klient.Adresa</div>
+                                            </td>
+                                        </tr>
+                                    }    
                                 </tbody>
                             </table>
                         </div>

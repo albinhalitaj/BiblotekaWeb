@@ -104,7 +104,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             libri.InsertDate = liber.InsertDate;
             libri.ImageName = liber.ImageName;
             _libriService.PerditesoLibrin(libri);
-            _notyfi.Custom("Klienti u përditësua!", 5, "#FFBC53", "fa fa-check");
+            _notyfi.Custom("Libri u përditësua!", 5, "#FFBC53", "fa fa-check");
             return RedirectToAction(nameof(Index));
         }
 
