@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -76,20 +77,32 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edito(string id)
+        public async Task<IActionResult> Edito(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
+            ViewBag.Kategorite = _webContext.Kategoria.ToList();
+            ViewBag.Gjuhet = _webContext.Gjuhas.ToList();
             var libri = _libriService.GetLibriById(id);
             return View(libri);
         }
 
         [HttpPost]
-        public IActionResult Edito(Libri libri)
+        public async Task<IActionResult> Edito(string id,Libri libri)
         {
-            if (!ModelState.IsValid) return View(libri);
+            var liber = _libriService.GetLibriById(id);
+            if (liber.Lun == null)
+                libri.Lun = 1;
+            else
+                libri.Lun = liber.Lun + 1;
+            libri.Lub = Convert.ToInt32(User.Claims.ElementAt(1).Value);
+            libri.Lud = DateTime.Now;
+            libri.LibriId = id;
+            libri.InsertBy = liber.InsertBy;
+            libri.InsertDate = liber.InsertDate;
+            libri.ImageName = liber.ImageName;
             _libriService.PerditesoLibrin(libri);
             _notyfi.Custom("Klienti u përditësua!", 5, "#FFBC53", "fa fa-check");
             return RedirectToAction(nameof(Index));

@@ -61,9 +61,16 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         public IActionResult Edito(string id, Klienti klienti)
         {
             if (!ModelState.IsValid) return View(klienti);
+            var klient = _klientiService.GetKlientById(id);
+            if (klient.Lun == null)
+                klienti.Lun = 1;
+            else
+                klient.Lun++;
             klienti.Lub = Convert.ToInt32(User.Claims.ElementAt(1).Value);
             klienti.Lud = DateTime.Now;
             klienti.KlientiId = id;
+            klienti.InsertBy = klient.InsertBy;
+            klienti.InsertDate = klient.InsertDate;
             _klientiService.PerditesoKlient(klienti);
             _notyf.Custom("Klienti u përditësua!", 5, "#FFBC53", "fa fa-check");
             return RedirectToAction(nameof(Index));

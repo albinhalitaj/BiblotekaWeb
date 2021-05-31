@@ -43,9 +43,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
                                     @foreach (var liber in Model)
                                     {
+                                        <tr>
                                         <td>@liber.LibriId</td>
                                         <td>
                                             <h2>
@@ -71,18 +71,18 @@
                                                 <span class="badge badge-danger">Joaktiv</span>
                                             </td>
                                         }
-                                        <td class="text-right">
-                                            <div class="actions">
-                                                <a asp-action="Edito" asp-route-id="@liber.LibriId" class="btn btn-sm bg-success-light mr-2">
-                                                    <i class="fas fa-pen"></i>
-                                                </a>
-                                                <a asp-action="Delete" asp-route-id="@liber.LibriId" class="btn btn-sm bg-danger-light">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                            </div>
-                                        </td>
+                                            <td class="text-right">
+                                                <div class="actions">
+                                                    <a asp-action="Edito" asp-route-id="@liber.LibriId" class="btn btn-sm bg-success-light mr-2">
+                                                        <i class="fas fa-pen"></i>
+                                                    </a>
+                                                    <a asp-action="Delete" asp-route-id="@liber.LibriId" class="btn btn-sm bg-danger-light">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     }
-                                </tr>
                                 </tbody>
                             </table>
                         </div>
