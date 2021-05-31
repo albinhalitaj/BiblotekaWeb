@@ -28,42 +28,39 @@
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
-                                        <label>HuazimiId</label>
-                                        <input asp-for="HuazimiId" class="form-control">
-                                        <span asp-validation-for="HuazimiId"></span>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <div class="form-group">
-                                        <label>KlientiId</label>
-                                        <input asp-for="KlientiId" class="form-control">
+                                        <label>Klienti</label>
+                                        <select asp-for="KlientiId" asp-items="@ViewBag.Klientet" class="form-control">
+                                            <option>Selekto Klientin</option>
+                                        </select>
                                         <span asp-validation-for="KlientiId"></span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
-                                        <label>LibriId</label>
-                                        <input asp-for="LibriId" class="form-control">
+                                        <label>Libri</label>
+                                        <select asp-for="LibriId" asp-items="@(new SelectList(ViewBag.Librat,"LibriId","Titulli"))" class="form-control">
+                                            <option>Selekto Librin</option>
+                                        </select>
                                         <span asp-validation-for="LibriId"></span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
-                                        <label>NumriKopjeve</label>
+                                        <label>Sasia</label>
                                         <input asp-for="NumriKopjeve" min="0" class="form-control">
                                         <span asp-validation-for="NumriKopjeve"></span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
-                                        <label>DataHuazimit</label>
+                                        <label>Data Huazimit</label>
                                         <input asp-for="DataHuazimi" type="date" class="form-control">
                                         <span asp-validation-for="DataHuazimi"></span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
-                                        <label>DataKthimit</label>
+                                        <label>Data Kthimit</label>
                                         <input asp-for="DataKthimit" type="date" class="form-control">
                                         <span asp-validation-for="DataKthimit"></span>
                                     </div>
@@ -76,7 +73,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary">Shto</button>
+                                    <button type="submit" class="btn btn-primary">Huazo</button>
                                 </div>
                             </div>
                         </form>
