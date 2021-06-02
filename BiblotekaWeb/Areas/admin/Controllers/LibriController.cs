@@ -56,7 +56,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         public async Task<IActionResult> Shto(Libri libri)
         {
             var id = string.Empty;
-            await using (var con = new SqlConnection(Config.GetConnectionString("Conn")))
+            await using (var con = new SqlConnection(Config.GetConnectionString("ConnEndrit")))
             {
                 id = con.Query<string>("select dbo.LibriID()").FirstOrDefault();
             }

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using BiblotekaWeb.Areas.admin.Data;
+
 
 namespace BiblotekaWeb.Areas.admin.Controllers
 {
@@ -16,6 +18,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
     {
         private readonly BiblotekaWebContext _context;
         private readonly INotyfService _notyf;
+        private readonly IHuazoService _huazoService;
 
         public HuazimetController(BiblotekaWebContext context, INotyfService _notyf)
         {
@@ -25,8 +28,11 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         
         public IActionResult Index()
         {
-            return View();
+            var huazo = _huazoService.GetAllHuazimet();
+            return View(huazo);
         }
+
+        
 
 
         [HttpGet]
@@ -92,6 +98,16 @@ namespace BiblotekaWeb.Areas.admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
+        }
+        public IActionResult Delete(int id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var status = _huazoService.DeleteHuazimin(id);
+            return Json(status);
         }
     }
 }
