@@ -16,7 +16,7 @@ namespace BiblotekaWeb.Areas.admin.Models
        
         public string LibriId { get; set; }
        
-        public string Tipi { get; set; }
+        public Tipet Tipi { get; set; }
        
         public DateTime Data { get; set; }
        

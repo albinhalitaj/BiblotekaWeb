@@ -19,9 +19,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         
         public IActionResult Index()
         {
-            var klientet = _context.Klientis.ToList()
-                                        .OrderByDescending(x => x.InsertDate)
-                                        .Take(5);
+            var klientet = _context.Klientis.OrderByDescending(x => x.InsertDate).Take(5).ToList();
             var model = new BallinaViewModel()
             {
                 Klientet = klientet

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Shto Libër";
 }
 
-<div class="page-wrapper">
+<div id="root" class="page-wrapper">
     <div class="content container-fluid">
         <div class="page-header">
             <div class="row align-items-center">
@@ -23,14 +23,14 @@
                     <div class="card-body">
                         <form asp-action="Shto" enctype="multipart/form-data" method="post">
                             <div class="row">
-                                    <h5 class="form-title"><span>Informatat e Librit</span></h5>
+                                <h5 class="form-title"><span>Informatat e Librit</span></h5>
                                 <div class="col-12">
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Titulli</label>
                                         <input asp-for="Titulli" class="form-control">
-                                        <span asp-validation-for="Titulli"></span>
+                                        <span  asp-validation-for="Titulli"></span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
@@ -50,7 +50,7 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Gjuha</label>
-                                        <select asp-for="GjuhaId" asp-items="@(new SelectList(ViewBag.Gjuhet,"GjuhaId","Emertimi"))" class="form-control">
+                                        <select asp-for="GjuhaId" asp-items="@(new SelectList(ViewBag.Gjuhet, "GjuhaId", "Emertimi"))" class="form-control">
                                             <option>Selekto Gjuhen</option>
                                         </select>
                                         <span asp-validation-for="GjuhaId"></span>
@@ -82,7 +82,7 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Sasia</label>
-                                        <input asp-for="NumriKopjeve" min="0" class="form-control">
+                                        <input v-model="sasia" asp-for="NumriKopjeve" min="0" class="form-control">
                                         <span asp-validation-for="NumriKopjeve"></span>
                                     </div>
                                 </div>
@@ -90,8 +90,8 @@
                                     <div class="form-group">
                                         <label>Statusi</label>
                                         <select asp-for="Statusi" class="form-control">
-                                            <option value="true">Aktiv</option>
-                                            <option value="false">Joaktiv</option>
+                                            <option :selected="sasia > 0" value="true">Aktiv</option>
+                                            <option :selected="sasia == 0" value="false">Joaktiv</option>
                                         </select>
                                         <span asp-validation-for="Statusi"></span>
                                     </div>
@@ -116,5 +116,8 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js" type="text/javascript"></script>
+    <script src="~/Admin/js/main.js"></script>
 }
+
 

@@ -75,7 +75,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             return View(model);
         }
 
-
+        
         public new async Task<IActionResult> SignOut()
         {
             await HttpContext.SignOutAsync();

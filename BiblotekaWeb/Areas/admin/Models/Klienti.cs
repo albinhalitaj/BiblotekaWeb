@@ -43,6 +43,7 @@ namespace BiblotekaWeb.Areas.admin.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         [EmailAddress]
         public string Emaili { get; set; }
+        public int? Huazimet { get; set; }
         public int InsertBy { get; set; }
         public DateTime? InsertDate { get; set; }
         public int? Lub { get; set; }

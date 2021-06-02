@@ -9,8 +9,8 @@ namespace BiblotekaWeb.Areas.admin.Models
     public partial class Huazimi
     {
         public int HuazimiId { get; set; }
-        public int StafiId { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Selekto Librin")]
+        public int StafiId { get; set; }
         
         public string LibriId { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Selektoni Klientin")]
@@ -34,6 +34,5 @@ namespace BiblotekaWeb.Areas.admin.Models
 
         public virtual Klienti Klienti { get; set; }
         public virtual Libri Libri { get; set; }
-        public virtual Stafi Stafi { get; set; }
     }
 }

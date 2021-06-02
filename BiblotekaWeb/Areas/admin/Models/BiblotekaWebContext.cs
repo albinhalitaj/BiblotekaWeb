@@ -177,7 +177,6 @@ namespace BiblotekaWeb.Areas.admin.Models
 
                 entity.Property(e => e.Pershkrimi).HasMaxLength(50);
 
-                entity.Property(e => e.StafiId).HasColumnName("StafiID");
 
                 entity.HasOne(d => d.Klienti)
                     .WithMany(p => p.Huazimis)
@@ -191,11 +190,6 @@ namespace BiblotekaWeb.Areas.admin.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Huazimi_Libri");
 
-                entity.HasOne(d => d.Stafi)
-                    .WithMany(p => p.Huazimis)
-                    .HasForeignKey(d => d.StafiId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Huazimi_Stafi");
             });
 
             modelBuilder.Entity<Kategorium>(entity =>
