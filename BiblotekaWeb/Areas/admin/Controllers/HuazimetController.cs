@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Transactions;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using BiblotekaWeb.Areas.admin.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -118,7 +119,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
                 var huazimi = await _context.Huazimis.FirstOrDefaultAsync(x => x.HuazimiId == id);
                 var libri = await _context.Libris.FirstOrDefaultAsync(x => x.LibriId == huazimi.LibriId);
                 var ditet = (DateTime.Now - huazimi.DataKthimit).Days;
-                using var tansaction = _context.Database.BeginTransactionAsync();
+                await using var transaction = await _context.Database.BeginTransactionAsync();
                 try
                 {
                     if (ditet > 0)
@@ -130,14 +131,35 @@ namespace BiblotekaWeb.Areas.admin.Controllers
                             Data = DateTime.Now,
                             InsertBy = Convert.ToInt32(User.Claims.First(x=>x.Type == "Id").Value),
                             InsertDate = DateTime.Now,
-                            Shuma = shuma
+                            Shuma = shuma,
+                            ShumaPranuar = shuma
                         };
+                        await _context.AddAsync(gjoba);
+                        await _context.SaveChangesAsync();
                     }
+                    huazimi.Statusi = false;
+                    libri.NumriKopjeve += huazimi.NumriKopjeve;
+                    _context.Entry(huazimi).State = EntityState.Modified;
+                    _context.Entry(libri).State = EntityState.Modified;
+                    var act = new Aktiviteti
+                    {
+                        KlientiId = huazimi.KlientiId,
+                        LibriId = huazimi.LibriId,
+                        PunetoriId = Convert.ToInt32(User.Claims.First(x=>x.Type == "Id").Value),
+                        Data = DateTime.Now,
+                        Tipi = Tipet.Kthim
+                    };
+                    await _context.AddAsync(act);
+                    await _context.SaveChangesAsync();
+                    
+                   await transaction.CommitAsync();
+                   _notyf.Custom("Libri u huazua me sukses!", 5, "#FFBC53", "fa fa-check");
+                    
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Console.WriteLine(e);
-                    throw;
+                    await transaction.RollbackAsync();
+                    _notyf.Error("Ndodhi një gabim! Ju lutemi provoni përsëri.",5);
                 }
             }
             return View();
