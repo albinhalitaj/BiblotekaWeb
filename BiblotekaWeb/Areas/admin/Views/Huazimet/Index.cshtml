@@ -17,6 +17,7 @@
                 </div>
                 <div class="col-auto text-right float-right ml-auto">
                     <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Shkarko</a>
+                    <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-print"></i> Printo</a>
                     <a asp-action="Huazo" asp-controller="Huazimet" class="btn btn-primary"><i class="fas fa-plus"></i></a>
                 </div>
             </div>
@@ -30,45 +31,65 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>KlientiId</th>
-                                        <th>LibriId</th>
-                                        <th>NumriKopjeve</th>
-                                        <th>DataHuazimit</th>
-                                        <th>DataKthimit</th>
+                                        <th>Klienti</th>
+                                        <th>Libri</th>
+                                        <th>Data Huazimit</th>
+                                        <th>Data Kthimit</th>
+                                        <th>Sasia</th>
+                                        <th>Përshkrimi</th>
                                         <th>Statusi</th>
-                                        <th>Pershkrimi</th>
                                         <th class="text-right">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            <h2>
-                                                <a>Filan Fisteku</a>
-                                            </h2>
-                                        </td>
-                                        <td>Libri Pare</td>
-                                        <td>1</td>
-                                        <td>15-08-2001</td>
-                                        <td>15-08-2001</td>
-                                        <td>
-                                            <span class="badge badge-success">Aktiv</span>
-                                        </td>
-                                        <td>testest</td>
-                                        <td class="text-right">
-                                            <div class="actions">
-                                                <a href="edit-department.html" class="btn btn-sm bg-success-light mr-2">
-                                                    <i class="fas fa-pen"></i>
-                                                </a>
-                                                <a href="#" class="btn btn-sm bg-danger-light">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
+                                    @foreach (var huazim in Model)
+                                    {
+                                        <tr>
+                                            <td>@huazim.HuazimiId</td>
+                                            <td>
+                                                <h2>
+                                                    <a>@huazim.Klienti.Emri @huazim.Klienti.Mbiemri</a>
+                                                </h2>
+                                            </td>
+                                            <td>@huazim.Libri.Titulli</td>
+                                            <td>@huazim.DataHuazimi.ToString("dd/MM/yyyy")</td>
+                                            @if (huazim.DataKthimit < DateTime.Now)
+                                            {
+                                                <td class="text-danger">@huazim.DataKthimit.ToString("dd/MM/yyyy")</td>
+                                            }
+                                            else
+                                            {
+                                                <td>@huazim.DataKthimit.ToString("dd/MM/yyyy")</td>
+                                            }
+                                            <td>@huazim.NumriKopjeve</td>
+                                            <td>@huazim.Pershkrimi</td>
+                                            @if (huazim.Statusi)
+                                            {
+                                                <td>
+                                                    <span class="badge badge-success">Aktiv</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <div class="actions">
+                                                        <a href="edit-department.html" class="btn btn-sm bg-success-light mr-2">
+                                                            <i class="fas fa-arrow-down"></i>
+                                                        </a>
+                                                        @if (huazim.DataKthimit < DateTime.Now)
+                                                        {
+                                                            <a href="#" class="btn btn-sm bg-success-light">
+                                                                <i class="fas fa-paper-plane"></i>
+                                                            </a>
+                                                        }
+                                                    </div>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <span class="badge badge-danger">Përfunduar</span>
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
                         </div>

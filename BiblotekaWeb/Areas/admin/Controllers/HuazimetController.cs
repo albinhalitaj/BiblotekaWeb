@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using BiblotekaWeb.Areas.admin.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +19,6 @@ namespace BiblotekaWeb.Areas.admin.Controllers
     {
         private readonly BiblotekaWebContext _context;
         private readonly INotyfService _notyf;
-        private readonly IHuazoService _huazoService;
 
         public HuazimetController(BiblotekaWebContext context, INotyfService _notyf)
         {
@@ -26,14 +26,12 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             this._notyf = _notyf;
         }
         
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var huazo = _huazoService.GetAllHuazimet();
-            return View(huazo);
+            var huazimet = await _context.Huazimis.Include(k => k.Klienti)
+                .Include(l => l.Libri).ToListAsync(); 
+            return View(huazimet);
         }
-
-        
-
 
         [HttpGet]
         public IActionResult Huazo()
@@ -99,15 +97,18 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             }
             return View(model);
         }
-        public IActionResult Delete(int id)
-        {
 
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var status = _huazoService.DeleteHuazimin(id);
-            return Json(status);
+        [HttpGet]
+        public IActionResult Kthe(int id)
+        {
+            return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Kthe(int id, Gjoba gjoba)
+        {
+            return View();
+        }
+        
     }
 }
