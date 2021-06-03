@@ -1,0 +1,104 @@
+@model BiblotekaWeb.Areas.admin.ViewModels.HuazimiMesazhiViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_AdminLayout";
+}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Njofto Klientin</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-action="Index">Huazimet</a></li>
+                        <li class="breadcrumb-item active">Njofto Klientin</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form asp-action="Njofto">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="form-title"><span>Informatat e Huazimit</span></h5>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Klienti</label>
+                                        <input value="@string.Concat(Model.Huazimi.Klienti.Emri," ",Model.Huazimi.Klienti.Mbiemri)" readonly class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Libri</label>
+                                        <input value="@Model.Huazimi.Libri.Titulli"  readonly class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Sasia</label>
+                                        <input value="@Model.Huazimi.NumriKopjeve" min="0" readonly class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Data Huazimit</label>
+                                        <input asp-for="Huazimi.DataHuazimi" readonly type="date" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Data Kthimit</label>
+                                        <input asp-for="Huazimi.DataKthimit" readonly type="date" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Pershkrimi</label>
+                                        <input asp-for="Huazimi.Pershkrimi" class="form-control">
+                                        <span asp-validation-for="Huazimi.Pershkrimi"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-8">
+                    <div class="card" style="margin-left: -13px">
+                        <div class="card-body">
+                            <div class="col-12">
+                                <h5 class="form-title"><span>Mesazhi</span></h5>
+                            </div>
+                            <form method="post" asp-action="Njofto">
+                                <div class="form-group">
+                                    <label>Pranuesi</label>
+                                    <input type="email" asp-for="Huazimi.Klienti.Emaili" readonly class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Subjekti</label>
+                                    <input type="text" placeholder="Subject" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Mesazhi</label>
+                                    <textarea rows="4" class="form-control summernote" placeholder="Enter your message here"></textarea>
+                                </div>
+                                <div class="form-group mb-0">
+                                    <div class="text-center">
+                                        <button class="btn btn-primary"><i class="fas fa-paper-plane m-r-5"></i> <span>Dërgo</span></button>
+                                        <button class="btn btn-success m-l-5" type="button"> <i class="far fa-save m-r-5"></i> <span>Ruaj</span></button>
+                                        <button class="btn btn-danger m-l-5" type="button"> <i class="far fa-trash-alt m-r-5"></i><span>Anulo</span></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BiblotekaWeb.Areas.admin.Data;
+using BiblotekaWeb.Areas.admin.ViewModels;
 
 
 namespace BiblotekaWeb.Areas.admin.Controllers
@@ -99,16 +100,37 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Kthe(int id)
+        public async Task<IActionResult> Kthe(int? id)
+        {
+            var huazimi = await _context.Huazimis.Where(x => x.HuazimiId == id && x.Statusi).FirstOrDefaultAsync();
+            ViewBag.NoOfDays = (DateTime.Now - huazimi.DataKthimit).Days;
+            var model = new HuazimiGjobaViewModel
+            {
+                Huazimi = _context.Huazimis.Include(x=>x.Klienti)
+                    .Include(x=>x.Libri).FirstOrDefault(x => x.HuazimiId == huazimi.HuazimiId),
+                Gjoba = new Gjoba()
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Kthe(int? id, Gjoba gjoba)
         {
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Kthe(int id, Gjoba gjoba)
+
+        [HttpGet]
+        public async Task<IActionResult> Njofto(int? id)
         {
-            return View();
+            var huazimi = await _context.Huazimis.Include(x => x.Klienti).Include(x => x.Libri)
+                .Where(x => x.HuazimiId == id).FirstOrDefaultAsync();
+            var model = new HuazimiMesazhiViewModel
+            {
+                Huazimi = huazimi,
+                Mesazhi = new Mesazhi()
+            };
+            return View(model);
         }
-        
     }
 }

@@ -70,12 +70,12 @@
                                                 </td>
                                                 <td class="text-right">
                                                     <div class="actions">
-                                                        <a href="edit-department.html" class="btn btn-sm bg-success-light mr-2">
+                                                        <a asp-action="Kthe" asp-route-id="@huazim.HuazimiId" class="btn btn-sm bg-success-light mr-2">
                                                             <i class="fas fa-arrow-down"></i>
                                                         </a>
                                                         @if (huazim.DataKthimit < DateTime.Now)
                                                         {
-                                                            <a href="#" class="btn btn-sm bg-success-light">
+                                                            <a asp-action="Njofto" asp-route-id="@huazim.HuazimiId"  class="btn btn-sm bg-success-light">
                                                                 <i class="fas fa-paper-plane"></i>
                                                             </a>
                                                         }
