@@ -33,13 +33,12 @@
                                     <th>ID</th>
                                     <th>Emri</th>
                                     <th>Datalindjes</th>
-                                    <th>Gjinia</th>
                                     <th>NumriPersonal</th>
                                     <th>Adresa</th>
                                     <th>Qyteti</th>
                                     <th>Shteti</th>
-                                    <th>KodiPostal</th>
                                     <th>Email</th>
+                                    <th>Huazimet</th>
                                     <th class="text-right">Action</th>
                                 </tr>
                                 </thead>
@@ -54,20 +53,12 @@
                                                 </h2>
                                             </td>
                                             <td>@klient.Datalindjes.ToString("d")</td>
-                                            @if (klient.Gjinia == "M")
-                                            {
-                                                <td>Mashkull</td>
-                                            }
-                                            else
-                                            {
-                                                <td>Femër</td>
-                                            }
                                             <td>@klient.NrPersonal</td>
                                             <td>@klient.Adresa</td>
                                             <td>@klient.Qyteti</td>
                                             <td>@klient.Shteti</td>
-                                            <td>@klient.KodiPostal</td>
                                             <td>@klient.Emaili</td>
+                                            <td>@klient.Huazimet</td>
                                             <td class="text-right">
                                                 <div class="actions">
                                                     <a asp-action="Edito" asp-route-id="@klient.KlientiId" class="btn btn-sm bg-success-light mr-2">

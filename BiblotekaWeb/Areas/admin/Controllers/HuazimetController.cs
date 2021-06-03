@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using BiblotekaWeb.Areas.admin.Models;
@@ -104,18 +105,41 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         {
             var huazimi = await _context.Huazimis.Where(x => x.HuazimiId == id && x.Statusi).FirstOrDefaultAsync();
             ViewBag.NoOfDays = (DateTime.Now - huazimi.DataKthimit).Days;
-            var model = new HuazimiGjobaViewModel
-            {
-                Huazimi = _context.Huazimis.Include(x=>x.Klienti)
-                    .Include(x=>x.Libri).FirstOrDefault(x => x.HuazimiId == huazimi.HuazimiId),
-                Gjoba = new Gjoba()
-            };
+            var model = _context.Huazimis.Include(x => x.Klienti)
+                .Include(x => x.Libri).FirstOrDefault(x => x.HuazimiId == huazimi.HuazimiId && x.Statusi);
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Kthe(int? id, Gjoba gjoba)
+        public async Task<IActionResult> Kthe(int? id,decimal shuma)
         {
+            if (ModelState.IsValid)
+            {
+                var huazimi = await _context.Huazimis.FirstOrDefaultAsync(x => x.HuazimiId == id);
+                var libri = await _context.Libris.FirstOrDefaultAsync(x => x.LibriId == huazimi.LibriId);
+                var ditet = (DateTime.Now - huazimi.DataKthimit).Days;
+                using var tansaction = _context.Database.BeginTransactionAsync();
+                try
+                {
+                    if (ditet > 0)
+                    {
+                        var gjoba = new Gjoba
+                        {
+                            KlientiId = huazimi.KlientiId,
+                            LibriId = huazimi.LibriId,
+                            Data = DateTime.Now,
+                            InsertBy = Convert.ToInt32(User.Claims.First(x=>x.Type == "Id").Value),
+                            InsertDate = DateTime.Now,
+                            Shuma = shuma
+                        };
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            }
             return View();
         }
 

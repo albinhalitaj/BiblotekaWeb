@@ -1,4 +1,4 @@
-@model BiblotekaWeb.Areas.admin.ViewModels.HuazimiGjobaViewModel
+@model BiblotekaWeb.Areas.admin.Models.Huazimi
 
 @{
     ViewBag.Title = "title";
@@ -6,7 +6,7 @@
     var noOfDays = Convert.ToInt32(ViewBag.NoOfDays);
 }
 
-<div class="page-wrapper">
+<div id="app" class="page-wrapper">
     <div class="content container-fluid">
         <div class="page-header">
             <div class="row align-items-center">
@@ -23,7 +23,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <form asp-action="Kthe">
+                        <form asp-action="Kthe" asp-route-shuma="shuma">
                             <div class="row">
                                 <div class="col-12">
                                     <h5 class="form-title"><span>Informatat e Huazimit</span></h5>
@@ -31,38 +31,38 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Klienti</label>
-                                        <input value="@string.Concat(Model.Huazimi.Klienti.Emri," ",Model.Huazimi.Klienti.Mbiemri)" readonly class="form-control">
+                                        <input value="@string.Concat(Model.Klienti.Emri," ",Model.Klienti.Mbiemri)" readonly class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Libri</label>
-                                        <input value="@Model.Huazimi.Libri.Titulli"  readonly class="form-control">
+                                        <input value="@Model.Libri.Titulli"  readonly class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Sasia</label>
-                                        <input value="@Model.Huazimi.NumriKopjeve" min="0" readonly class="form-control">
+                                        <input value="@Model.NumriKopjeve" min="0" readonly class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Data Huazimit</label>
-                                        <input asp-for="Huazimi.DataHuazimi" readonly type="date" class="form-control">
+                                        <input asp-for="DataHuazimi" readonly type="date" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Data Kthimit</label>
-                                        <input asp-for="Huazimi.DataKthimit" readonly type="date" class="form-control">
+                                        <input asp-for="DataKthimit" readonly type="date" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Pershkrimi</label>
-                                        <input asp-for="Huazimi.Pershkrimi" class="form-control">
-                                        <span asp-validation-for="Huazimi.Pershkrimi"></span>
+                                        <input asp-for="Pershkrimi" class="form-control">
+                                        <span asp-validation-for="Pershkrimi"></span>
                                     </div>
                                 </div>
                                 @if (noOfDays > 0)
@@ -73,19 +73,19 @@
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>Shuma</label>
-                                            <input type="number" min="0" class="form-control">
+                                            <input id="shuma" oninput="Cal()" type="number" min="0" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>Ditët</label>
-                                            <input value="@noOfDays" readonly class="form-control">
+                                            <input id="ditet" value="@noOfDays" readonly class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                             <label>Totali</label>
-                                            <input type="number" value="0" readonly class="form-control">
+                                            <input id="totali" value="0" type="number" name="shuma" readonly class="form-control">
                                         </div>
                                     </div>
                                 }
@@ -100,3 +100,16 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script type="text/javascript">
+        function Cal() {
+            var shuma = $('#shuma').val();
+            var ditet = $('#ditet').val();
+            var totali = shuma * ditet;
+            $('#totali').attr('value', totali);
+        }
+</script>

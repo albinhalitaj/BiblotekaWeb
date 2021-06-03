@@ -53,7 +53,7 @@
                                             </td>
                                             <td>@huazim.Libri.Titulli</td>
                                             <td>@huazim.DataHuazimi.ToString("dd/MM/yyyy")</td>
-                                            @if (huazim.DataKthimit < DateTime.Now)
+                                            @if (huazim.DataKthimit < DateTime.Now && huazim.Statusi)
                                             {
                                                 <td class="text-danger">@huazim.DataKthimit.ToString("dd/MM/yyyy")</td>
                                             }
