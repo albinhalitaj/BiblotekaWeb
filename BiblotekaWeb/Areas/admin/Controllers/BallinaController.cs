@@ -3,6 +3,7 @@ using BiblotekaWeb.Areas.admin.Models;
 using BiblotekaWeb.Areas.admin.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace BiblotekaWeb.Areas.admin.Controllers
 {
@@ -20,9 +21,12 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         public IActionResult Index()
         {
             var klientet = _context.Klientis.OrderByDescending(x => x.InsertDate).Take(5).ToList();
+            var aktivitet = _context.Aktivitetis.OrderByDescending(x => x.AktivitetiId).Include(x => x.Klienti)
+                .Include(x => x.Libri).Take(5).ToList();
             var model = new BallinaViewModel()
             {
-                Klientet = klientet
+                Klientet = klientet,
+                Aktivitetet = aktivitet
             };
             ViewBag.Klientet = _context.Klientis.Count();
             ViewBag.Librat = _context.Libris.Count();
