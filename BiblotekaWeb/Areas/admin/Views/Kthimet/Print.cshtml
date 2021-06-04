@@ -1,9 +1,10 @@
 @model IEnumerable<BiblotekaWeb.Areas.admin.Models.Huazimi>
 
 @{
-    ViewData["Title"] = "Raporti Huazimeve";
+    ViewData["Title"] = "Raporti i Huazimeve";
     Layout = null;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +16,7 @@
     <link rel="stylesheet" href="~/Admin/css/style.css">
 </head>
 <body>
-<h1 class="text-center">Lista e Huazimeve</h1>
+<h1 class="text-center">Lista e Kthimeve</h1>
 <h4 style="margin-top: 100px;">Data: @DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss")</h4>
 <h4>Gjeneruar Nga: @ViewData["Stafi"]</h4>
 <table class="table" style="margin-top: 50px;">
@@ -34,31 +35,31 @@
     {
         <tr class="text-center">
             <td colspan="8">
-                <span>Nuk ka Huazime të regjistruar!</span>
+                <span>Nuk ka Kthime të regjistruar!</span>
             </td>
         </tr>
     }
     else
     {
-        @foreach (var huazim in Model)
+        @foreach (var kthim in Model)
         {
             <tr>
-                <td>@huazim.HuazimiId</td>
+                <td>@kthim.HuazimiId</td>
                 <td>
                     <h2 class="table-avatar">
-                        <a>@huazim.Klienti.Emri @huazim.Klienti.Mbiemri</a>
+                        <a>@kthim.Klienti.Emri @kthim.Klienti.Mbiemri</a>
                     </h2>
                 </td>
-                <td>@huazim.Libri.Titulli</td>
-                <td>@huazim.DataHuazimi.ToString("dd/MM/yyyy")</td>
-                <td>@huazim.DataKthimit.ToString("dd/MM/yyyy")</td>
-                <td>@huazim.NumriKopjeve</td>
+                <td>@kthim.Libri.Titulli</td>
+                <td>@kthim.DataHuazimi.ToString("dd/MM/yyyy")</td>
+                <td>@kthim.DataKthimit.ToString("dd/MM/yyyy")</td>
+                <td>@kthim.NumriKopjeve</td>
             </tr>
         }
     }
     </tbody>
 </table>
-<p class="mt-2 text-right">Total Huazime: @Model.Count()</p>
+<p class="mt-2 text-right">Total Kthime: @Model.Count()</p>
 
 <script src="~/Admin/js/jquery-3.5.1.min.js"></script>
 <script src="~/Admin/js/popper.min.js"></script>
