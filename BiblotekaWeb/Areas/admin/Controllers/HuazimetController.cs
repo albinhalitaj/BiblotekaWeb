@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BiblotekaWeb.Areas.admin.Data;
 using BiblotekaWeb.Areas.admin.ViewModels;
+using FluentEmail.Core;
 
 
 namespace BiblotekaWeb.Areas.admin.Controllers
@@ -22,11 +23,13 @@ namespace BiblotekaWeb.Areas.admin.Controllers
     {
         private readonly BiblotekaWebContext _context;
         private readonly INotyfService _notyf;
+        private readonly IFluentEmail _email;
 
-        public HuazimetController(BiblotekaWebContext context, INotyfService _notyf)
+        public HuazimetController(BiblotekaWebContext context, INotyfService _notyf,[FromServices] IFluentEmail _email)
         {
             _context = context;
             this._notyf = _notyf;
+            this._email = _email;
         }
         
         public async Task<IActionResult> Index()
@@ -178,6 +181,26 @@ namespace BiblotekaWeb.Areas.admin.Controllers
                 Mesazhi = new Mesazhi()
             };
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Njofto(int id,HuazimiMesazhiViewModel model)
+        {
+            var klienti = (from s in _context.Huazimis
+                where s.HuazimiId == id
+                select s.Klienti).FirstOrDefault();
+            SendEmailToClient(string.Concat(klienti.Emri, " ", klienti.Mbiemri), klienti.Emaili,
+                model.Mesazhi.Përmbajtja, model.Mesazhi.Subjekti);
+            _notyf.Custom("Emaili është dërguar me sukses!", 5, "#FFBC53", "fa fa-check");
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task SendEmailToClient(string fullName,string emaili,string mesazhi,string subjekti)
+        {
+            var email = _email.To(emaili, fullName)
+                .Subject(subjekti)
+                .Body(mesazhi, isHtml: true);
+            await email.SendAsync();
         }
     }
 }

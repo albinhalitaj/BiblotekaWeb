@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
@@ -46,6 +48,20 @@ namespace BiblotekaWeb
                 options.LoginPath = "/admin";
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
             });
+            var from = Configuration.GetSection("Mail")["From"];
+            var sender = Configuration.GetSection("Gmail")["Sender"];
+            var pass = Configuration.GetSection("Gmail")["Pass"];
+            var port = Convert.ToInt32(Configuration.GetSection("Gmail")["Port"]);
+            services.AddFluentEmail(sender, from)
+                .AddRazorRenderer()
+                .AddSmtpSender(new SmtpClient("smtp.gmail.com", port)
+                {
+                    EnableSsl = true,
+                    Credentials = new NetworkCredential(sender, pass),
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Port = port,
+                    UseDefaultCredentials = false
+                });
             services.AddTransient<IKlientiService, KlientiService>();
         }
 

@@ -22,7 +22,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <form asp-action="Njofto">
+                        <form asp-action="Njofto" asp-route-id="@Model.Huazimi.HuazimiId">
                             <div class="row">
                                 <div class="col-12">
                                     <h5 class="form-title"><span>Informatat e Huazimit</span></h5>
@@ -30,19 +30,19 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Klienti</label>
-                                        <input value="@string.Concat(Model.Huazimi.Klienti.Emri," ",Model.Huazimi.Klienti.Mbiemri)" readonly class="form-control">
+                                        <input asp-for="Huazimi.Klienti.Emri" value="@string.Concat(Model.Huazimi.Klienti.Emri," ",Model.Huazimi.Klienti.Mbiemri)" readonly class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Libri</label>
-                                        <input value="@Model.Huazimi.Libri.Titulli"  readonly class="form-control">
+                                        <input asp-for="Huazimi.Libri.Titulli" value="@Model.Huazimi.Libri.Titulli"  readonly class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Sasia</label>
-                                        <input value="@Model.Huazimi.NumriKopjeve" min="0" readonly class="form-control">
+                                        <input asp-for="Huazimi.NumriKopjeve" value="@Model.Huazimi.NumriKopjeve" min="0" readonly class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
@@ -81,11 +81,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Subjekti</label>
-                                    <input type="text" placeholder="Subject" class="form-control">
+                                    <input type="text" asp-for="Mesazhi.Subjekti" placeholder="Subject" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Mesazhi</label>
-                                    <textarea rows="4" class="form-control summernote" placeholder="Enter your message here"></textarea>
+                                    <textarea rows="4" asp-for="Mesazhi.Përmbajtja" class="form-control summernote" placeholder="Enter your message here"></textarea>
                                 </div>
                                 <div class="form-group mb-0">
                                     <div class="text-center">
