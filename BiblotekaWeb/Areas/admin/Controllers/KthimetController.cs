@@ -16,12 +16,6 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         {
             _context = context;
         }
-        
-        // GET
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         public IActionResult Print()
         {
