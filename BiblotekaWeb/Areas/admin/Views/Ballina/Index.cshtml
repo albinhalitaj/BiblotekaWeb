@@ -202,28 +202,26 @@
                     <div class="card-header">
                         <h5 class="card-title">Aktivitetet</h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" style="margin-left: -20px; margin-top: -10px">
                         <ul class="activity-feed">
                            <div class="card-body">
-                           	    <ul class="activity-feed">
-                           		   @foreach (var aktiviteti in Model.Aktivitetet)
+                           	   @foreach (var aktiviteti in Model.Aktivitetet)
+		                          {
+		                              if (aktiviteti.Tipi == Tipet.Huazim)
 		                              {
-		                                  if (aktiviteti.Tipi == Tipet.Huazim)
-		                                  {
-		                                      <li class="feed-item">
-                                                  <div class="feed-date">@aktiviteti.Data</div>
-                                                  <span class="feed-text"><a>@aktiviteti.Klienti.Emri @aktiviteti.Klienti.Mbiemri</a> huazoj librin <a>"@aktiviteti.Libri.Titulli"</a></span>
-                                              </li>
-		                                  }
-		                                  else
-		                                  {
-		                                      <li class="feed-item">
-                                                  <div class="feed-date">@aktiviteti.Data</div>
-                                                  <span class="feed-text"><a>@aktiviteti.Klienti.Emri @aktiviteti.Klienti.Mbiemri</a> ktheu librin <a>"@aktiviteti.Libri.Titulli"</a></span>
-                                              </li>
-		                                  }
-		                              } 
-                           	    </ul>
+		                                  <li class="feed-item">
+                                              <div class="feed-date">@aktiviteti.Data.ToString("f")</div>
+                                              <span class="feed-text"><a>@aktiviteti.Klienti.Emri @aktiviteti.Klienti.Mbiemri</a> huazoj librin <a>"@aktiviteti.Libri.Titulli"</a></span>
+                                          </li>
+		                              }
+		                              else
+		                              {
+		                                  <li class="feed-item">
+                                              <div class="feed-date">@aktiviteti.Data.ToString("f")</div>
+                                              <span class="feed-text"><a>@aktiviteti.Klienti.Emri @aktiviteti.Klienti.Mbiemri</a> ktheu librin <a>"@aktiviteti.Libri.Titulli"</a></span>
+                                          </li>
+		                              }
+		                          } 
                             </div> 
                         </ul>
                     </div>

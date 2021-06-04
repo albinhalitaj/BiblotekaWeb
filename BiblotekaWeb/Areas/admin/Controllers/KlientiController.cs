@@ -1,13 +1,16 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using BiblotekaWeb.Areas.admin.Data;
 using BiblotekaWeb.Areas.admin.Models;
+using ClosedXML.Excel;
 using Dapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Rotativa.AspNetCore;
 
 namespace BiblotekaWeb.Areas.admin.Controllers
 {
@@ -85,6 +88,57 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             }
             var status = _klientiService.DeleteKlient(id);
             return Json(status);
+        }
+
+        public IActionResult Print()
+        {
+            const string footer = "--footer-center \"Copyright © 2021 Library Management System.  Page: [page]/[toPage]\"" + " --footer-line --footer-font-size \"10\" --footer-font-name \"Poppins light\"";
+            var stafiId = Convert.ToInt32(User.Claims.First(x => x.Type == "Id").Value);
+            var stafi = _klientiService.GetStafi(stafiId);
+            ViewData["Stafi"] = stafi.Emri + " " + stafi.Mbiemri;
+            return new ViewAsPdf(_klientiService.GetAllKlients(), ViewData)
+            {
+                CustomSwitches = footer
+            };
+        }
+
+        public IActionResult Export() => Excel();
+        
+        public IActionResult Excel()
+        {
+            var klientet = _klientiService.GetAllKlients();
+            using var workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add("Klientët");
+            var currentRow = 1;
+            worksheet.Cell(currentRow, 1).Value = "KlientiID";
+            worksheet.Cell(currentRow, 2).Value = "Emri";
+            worksheet.Cell(currentRow, 3).Value = "Mbiemri";
+            worksheet.Cell(currentRow, 4).Value = "NumriPersonal";
+            worksheet.Cell(currentRow, 5).Value = "Emaili";
+            worksheet.Cell(currentRow, 6).Value = "Adresa";
+            worksheet.Cell(currentRow, 7).Value = "Huazimet";
+
+            IXLRange range = worksheet.Range(worksheet.Cell(currentRow, 1).Address,
+                worksheet.Cell(currentRow, 7).Address);
+            range.Style.Font.Bold = true;
+            range.Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
+            worksheet.ColumnWidth = 20;
+            foreach (var klienti in klientet)
+            {
+                currentRow++;
+                worksheet.Cell(currentRow, 1).Value = klienti.KlientiId;
+                worksheet.Cell(currentRow, 2).Value = klienti.Emri;
+                worksheet.Cell(currentRow, 3).Value = klienti.Mbiemri;
+                worksheet.Cell(currentRow, 4).Value = klienti.NrPersonal;
+                worksheet.Cell(currentRow, 5).Value = klienti.Emaili;
+                worksheet.Cell(currentRow, 6).Value = klienti.Adresa;
+                worksheet.Cell(currentRow, 7).Value = klienti.Huazimet;
+            }
+            using var stream = new MemoryStream();
+            workbook.SaveAs(stream);
+            var content = stream.ToArray();
+            return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "Klientët.xlsx");
         }
     }
 }

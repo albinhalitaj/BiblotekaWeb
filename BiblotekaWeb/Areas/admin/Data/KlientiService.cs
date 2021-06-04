@@ -43,5 +43,10 @@ namespace BiblotekaWeb.Areas.admin.Data
             _context.SaveChanges();
             return true;
         }
+
+        public Stafi GetStafi(int id)
+        {
+            return _context.Stafis.Single(x => x.StafiId == id);
+        }
     }
 }

@@ -138,14 +138,9 @@
                         <a class="dropdown-item" asp-controller="Account" asp-action="SignOut">Dil</a>
                     </div>
                 </li>
-                <!-- /User Menu -->
-
             </ul>
-            <!-- /Header Right Menu -->
 
         </div>
-        <!-- /Header -->
-        <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
@@ -157,16 +152,16 @@
                             <a asp-controller="Home" asp-action="Index"><i class="fas fa-th-large"></i> <span>Ballina</span></a>
                         </li>
                         <li class="submenu">
-                            <a href="#"><i class="fas fa-building"></i> <span> Kategorite</span> <span class="menu-arrow"></span></a>
+                            <a href="#"><i class="fas fa-building"></i> <span> Kategoritë</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a asp-controller="Kategoria" asp-action="Index">Lista Kategorive</a></li>
                                 <li><a asp-controller="Kategoria" asp-action="Shto">Shto Kategori</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
-                            <a href="#"><i class="fas fa-user-graduate"></i> <span> Klientet</span> <span class="menu-arrow"></span></a>
+                            <a href="#"><i class="fas fa-user-graduate"></i> <span> Klientët</span> <span class="menu-arrow"></span></a>
                             <ul>
-                                <li><a asp-controller="Klienti" asp-action="Index">Lista Klienteve</a></li>
+                                <li><a asp-controller="Klienti" asp-action="Index">Lista Klientëve</a></li>
                                 <li><a asp-controller="Klienti" asp-action="Shto">Shto Klient</a></li>
                             </ul>
                         </li>
@@ -174,14 +169,14 @@
                             <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Librat</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a asp-controller="Libri" asp-action="Index">Lista Librave</a></li>
-                                <li><a asp-controller="Libri" asp-action="Shto">Shto Liber</a></li>
+                                <li><a asp-controller="Libri" asp-action="Shto">Shto Libër</a></li>
                             </ul>
                         </li>
                         <li class="submenu">
                             <a href="#"><i class="fas fa-book-reader"></i> <span> Huazimet</span> <span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a asp-controller="Huazimet" asp-action="Index">Lista Huazimeve</a></li>
-                                <li><a asp-controller="Huazimet" asp-action="Huazo">Huazo Liber</a></li>
+                                <li><a asp-controller="Huazimet" asp-action="Huazo">Huazo Libër</a></li>
                             </ul>
                         </li>
 
@@ -196,10 +191,10 @@
                         <li class="submenu">
                             <a href="#"><i class="fas fa-book-reader"></i> <span> Raportet</span> <span class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="subjects.html">Raporti Klienteve</a></li>
-                                <li><a href="add-subject.html">Raporti Librave</a></li>
-                                <li><a href="add-subject.html">Raporti Huazimeve</a></li>
-                                <li><a href="add-subject.html">Raporti Kthimeve</a></li>
+                                <li><a asp-controller="Klienti" asp-action="Print" target="_blank">Raporti Klientëve</a></li>
+                                <li><a asp-controller="Libri" asp-action="Print" target="_blank">Raporti Librave</a></li>
+                                <li><a asp-controller="Huazimet" asp-action="Print" target="_blank">Raporti Huazimeve</a></li>
+                                <li><a asp-controller="Kthimet" asp-action="Print">Raporti Kthimeve</a></li>
                             </ul>
                         </li>
                     </ul>
