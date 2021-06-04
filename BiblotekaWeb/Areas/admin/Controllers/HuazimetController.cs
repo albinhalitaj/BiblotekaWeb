@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -12,7 +13,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BiblotekaWeb.Areas.admin.Data;
 using BiblotekaWeb.Areas.admin.ViewModels;
+using ClosedXML.Excel;
 using FluentEmail.Core;
+using Rotativa.AspNetCore;
 
 
 namespace BiblotekaWeb.Areas.admin.Controllers
@@ -117,53 +120,49 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Kthe(int? id,decimal shuma)
         {
-            if (ModelState.IsValid)
+            var huazimi = await _context.Huazimis.FirstOrDefaultAsync(x => x.HuazimiId == id);
+            var libri = await _context.Libris.FirstOrDefaultAsync(x => x.LibriId == huazimi.LibriId);
+            var ditet = (DateTime.Now - huazimi.DataKthimit).Days;
+            await using var transaction = await _context.Database.BeginTransactionAsync();
+            try
             {
-                var huazimi = await _context.Huazimis.FirstOrDefaultAsync(x => x.HuazimiId == id);
-                var libri = await _context.Libris.FirstOrDefaultAsync(x => x.LibriId == huazimi.LibriId);
-                var ditet = (DateTime.Now - huazimi.DataKthimit).Days;
-                await using var transaction = await _context.Database.BeginTransactionAsync();
-                try
+                if (ditet > 0)
                 {
-                    if (ditet > 0)
-                    {
-                        var gjoba = new Gjoba
-                        {
-                            KlientiId = huazimi.KlientiId,
-                            LibriId = huazimi.LibriId,
-                            Data = DateTime.Now,
-                            InsertBy = Convert.ToInt32(User.Claims.First(x=>x.Type == "Id").Value),
-                            InsertDate = DateTime.Now,
-                            Shuma = shuma,
-                            ShumaPranuar = shuma
-                        };
-                        await _context.AddAsync(gjoba);
-                        await _context.SaveChangesAsync();
-                    }
-                    huazimi.Statusi = false;
-                    libri.NumriKopjeve += huazimi.NumriKopjeve;
-                    _context.Entry(huazimi).State = EntityState.Modified;
-                    _context.Entry(libri).State = EntityState.Modified;
-                    var act = new Aktiviteti
+                    var gjoba = new Gjoba
                     {
                         KlientiId = huazimi.KlientiId,
                         LibriId = huazimi.LibriId,
-                        PunetoriId = Convert.ToInt32(User.Claims.First(x=>x.Type == "Id").Value),
                         Data = DateTime.Now,
-                        Tipi = Tipet.Kthim
+                        InsertBy = Convert.ToInt32(User.Claims.First(x=>x.Type == "Id").Value),
+                        InsertDate = DateTime.Now,
+                        Shuma = shuma,
+                        ShumaPranuar = shuma
                     };
-                    await _context.AddAsync(act);
+                    await _context.AddAsync(gjoba);
                     await _context.SaveChangesAsync();
-                    
-                   await transaction.CommitAsync();
-                   _notyf.Custom("Libri u huazua me sukses!", 5, "#FFBC53", "fa fa-check");
-                    
                 }
-                catch (Exception)
+                huazimi.Statusi = false;
+                libri.NumriKopjeve += huazimi.NumriKopjeve;
+                _context.Entry(huazimi).State = EntityState.Modified;
+                _context.Entry(libri).State = EntityState.Modified;
+                var act = new Aktiviteti
                 {
-                    await transaction.RollbackAsync();
-                    _notyf.Error("Ndodhi një gabim! Ju lutemi provoni përsëri.",5);
-                }
+                    KlientiId = huazimi.KlientiId,
+                    LibriId = huazimi.LibriId,
+                    PunetoriId = Convert.ToInt32(User.Claims.First(x=>x.Type == "Id").Value),
+                    Data = DateTime.Now,
+                    Tipi = Tipet.Kthim
+                };
+                await _context.AddAsync(act);
+                await _context.SaveChangesAsync();
+                
+               await transaction.CommitAsync();
+               _notyf.Custom("Libri u huazua me sukses!", 5, "#FFBC53", "fa fa-check");
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                _notyf.Error("Ndodhi një gabim! Ju lutemi provoni përsëri.",5);
             }
             return RedirectToAction(nameof(Index));
         }
@@ -200,6 +199,58 @@ namespace BiblotekaWeb.Areas.admin.Controllers
                 .Subject(subjekti)
                 .Body(mesazhi, isHtml: true);
             await email.SendAsync();
+        }
+
+        public IActionResult Print()
+        {
+            const string footer = "--footer-center \"Copyright © 2021 Library Management System.  Page: [page]/[toPage]\"" + " --footer-line --footer-font-size \"10\" --footer-font-name \"Poppins light\"";
+            var stafiId = Convert.ToInt32(User.Claims.First(x => x.Type == "Id").Value);
+            var stafi = _context.Stafis.Single(x => x.StafiId == stafiId);
+            ViewData["Stafi"] = stafi.Emri + " " + stafi.Mbiemri;
+            var huazimet = _context.Huazimis.Include(x => x.Klienti).Include(x => x.Libri)
+                .Where(x=>x.Statusi).ToList();
+            return new ViewAsPdf(huazimet, ViewData)
+            {
+                CustomSwitches = footer
+            };
+        }
+
+        public IActionResult Export() => Excel();
+
+        public IActionResult Excel()
+        {
+            var huazimet = _context.Huazimis.Include(x => x.Klienti).Include(x => x.Libri)
+                .Where(x => x.Statusi).ToList();
+            using var workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add("Huazimet");
+            var currentRow = 1;
+            worksheet.Cell(currentRow, 1).Value = "HuazimiID";
+            worksheet.Cell(currentRow, 2).Value = "Klienti";
+            worksheet.Cell(currentRow, 3).Value = "Libri";
+            worksheet.Cell(currentRow, 4).Value = "Data Huazimit";
+            worksheet.Cell(currentRow, 5).Value = "Data Kthimit";
+            worksheet.Cell(currentRow, 6).Value = "Sasia";
+
+            IXLRange range = worksheet.Range(worksheet.Cell(currentRow, 1).Address,
+                worksheet.Cell(currentRow, 6).Address);
+            range.Style.Font.Bold = true;
+            range.Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
+            worksheet.ColumnWidth = 20;
+            foreach (var huazim in huazimet)
+            {
+                currentRow++;
+                worksheet.Cell(currentRow, 1).Value = huazim.HuazimiId;
+                worksheet.Cell(currentRow, 2).Value = string.Concat(huazim.Klienti.Emri, " ", huazim.Klienti.Mbiemri);
+                worksheet.Cell(currentRow, 3).Value = huazim.Libri.Titulli;
+                worksheet.Cell(currentRow, 4).Value = huazim.DataHuazimi.ToString("d");
+                worksheet.Cell(currentRow, 5).Value = huazim.DataKthimit.ToString("d");
+                worksheet.Cell(currentRow, 6).Value = huazim.NumriKopjeve;
+            }
+            using var stream = new MemoryStream();
+            workbook.SaveAs(stream);
+            var content = stream.ToArray();
+            return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "Huazimet.xlsx");
         }
     }
 }

@@ -6,12 +6,14 @@ using BiblotekaWeb.Areas.admin.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
+using ClosedXML.Excel;
 using Dapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Rotativa.AspNetCore;
 
 namespace BiblotekaWeb.Areas.admin.Controllers
 {
@@ -123,6 +125,61 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             var path = Path.Combine(wwwRootPath + "/Admin/img/bookImages", imgName);
             if (System.IO.File.Exists(path)) System.IO.File.Delete(path);
             return Json(result);
+        }
+
+        public IActionResult Print()
+        {
+            const string footer = "--footer-center \"Copyright © 2021 Library Management System.  Page: [page]/[toPage]\"" + " --footer-line --footer-font-size \"10\" --footer-font-name \"Poppins light\"";
+            var stafiId = Convert.ToInt32(User.Claims.First(x => x.Type == "Id").Value);
+            var stafi = _webContext.Stafis.Single(x => x.StafiId == stafiId);
+            ViewData["Stafi"] = stafi.Emri + " " + stafi.Mbiemri;
+            return new ViewAsPdf(_libriService.GetAllLibri(), ViewData)
+            {
+                CustomSwitches = footer
+            };
+        }
+
+        public IActionResult Export() => Excel();
+
+        public IActionResult Excel()
+        {
+            var librat = _libriService.GetAllLibri();
+            using var workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add("Librat");
+            var currentRow = 1;
+            worksheet.Cell(currentRow, 1).Value = "LibriID";
+            worksheet.Cell(currentRow, 2).Value = "Titulli";
+            worksheet.Cell(currentRow, 3).Value = "Autori";
+            worksheet.Cell(currentRow, 4).Value = "Botuesi";
+            worksheet.Cell(currentRow, 5).Value = "Gjuha";
+            worksheet.Cell(currentRow, 6).Value = "Kategoria";
+            worksheet.Cell(currentRow, 7).Value = "Editioni";
+            worksheet.Cell(currentRow, 8).Value = "Sasia";
+            worksheet.Cell(currentRow, 9).Value = "Statusi";
+
+            IXLRange range = worksheet.Range(worksheet.Cell(currentRow, 1).Address,
+                worksheet.Cell(currentRow, 9).Address);
+            range.Style.Font.Bold = true;
+            range.Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
+            worksheet.ColumnWidth = 20;
+            foreach (var liber in librat)
+            {
+                currentRow++;
+                worksheet.Cell(currentRow, 1).Value = liber.LibriId;
+                worksheet.Cell(currentRow, 2).Value = liber.Titulli;
+                worksheet.Cell(currentRow, 3).Value = liber.Autori;
+                worksheet.Cell(currentRow, 4).Value = liber.Botuesi;
+                worksheet.Cell(currentRow, 5).Value = liber.Gjuha.Emertimi;
+                worksheet.Cell(currentRow, 6).Value = liber.Kategoria.Emertimi;
+                worksheet.Cell(currentRow, 7).Value = liber.Editioni;
+                worksheet.Cell(currentRow, 8).Value = liber.NumriKopjeve;
+                worksheet.Cell(currentRow, 9).Value = liber.Statusi ? "Aktiv" : "Joaktiv";
+            }
+            using var stream = new MemoryStream();
+            workbook.SaveAs(stream);
+            var content = stream.ToArray();
+            return File(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "Librat.xlsx");
         }
     }
 }

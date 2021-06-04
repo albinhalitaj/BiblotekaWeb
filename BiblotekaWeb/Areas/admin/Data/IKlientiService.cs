@@ -10,5 +10,6 @@ namespace BiblotekaWeb.Areas.admin.Data
         Klienti GetKlientById(string id);
         void PerditesoKlient(Klienti klienti);
         bool DeleteKlient(string id);
+        Stafi GetStafi(int id);
     }
 }
