@@ -154,6 +154,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
                     
                    await transaction.CommitAsync();
                    _notyf.Custom("Libri u huazua me sukses!", 5, "#FFBC53", "fa fa-check");
+                   
                     
                 }
                 catch (Exception)
@@ -162,7 +163,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
                     _notyf.Error("Ndodhi një gabim! Ju lutemi provoni përsëri.",5);
                 }
             }
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
 

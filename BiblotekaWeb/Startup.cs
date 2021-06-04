@@ -39,7 +39,7 @@ namespace BiblotekaWeb
             services.AddTransient<ILibriService, LibriService>();
             services.AddControllersWithViews();
             services.AddDbContext<BiblotekaWebContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Conn")));
+                options.UseSqlServer(Configuration.GetConnectionString("ConnEndrit")));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
             {
