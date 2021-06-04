@@ -1,0 +1,110 @@
+﻿@model BiblotekaWeb.Areas.admin.ViewModels.StafPerdoruesitViewModel
+
+@{
+    ViewData["Title"] = "Shto";
+}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Shto Klientë</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-action="Index">Stafi</a></li>
+                        <li class="breadcrumb-item active">Shto Stafin</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form asp-action="Shto">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="form-title"><span>Informatat e Stafit</span></h5>
+                                </div>
+                                <div asp-validation-summary="ModelOnly"></div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Emri</label>
+                                        <input asp-for="Stafi.Emri" class="form-control">
+                                        <span asp-validation-for="Stafi.Emri"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Mbiemri</label>
+                                        <input asp-for="Stafi.Mbiemri" class="form-control">
+                                        <span asp-validation-for="Stafi.Mbiemri"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Datalindjes</label>
+                                        <input asp-for="Stafi.Datalindjes" type="date" class="form-control">
+                                        <span asp-validation-for="Stafi.Datalindjes"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input asp-for="Stafi.Emaili" type="date" class="form-control">
+                                        <span asp-validation-for="Stafi.Emaili"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Gjinia</label>
+                                        <select asp-for="Stafi.Gjinia" class="form-control">
+                                            <option>Mashkull</option>
+                                            <option>Femer</option>
+                                        </select>
+                                        <span asp-validation-for="Stafi.Gjinia"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Adresa</label>
+                                        <input asp-for="Stafi.Adresa" class="form-control">
+                                        <span asp-validation-for="Stafi.Adresa"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Telefoni</label>
+                                        <input asp-for="Stafi.Telefoni" class="form-control">
+                                        <span asp-validation-for="Stafi.Telefoni"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Username</label>
+                                        <input asp-for="Perdoruesi.Username" class="form-control">
+                                        <span asp-validation-for="Perdoruesi.Username"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="password" asp-for="Perdoruesi.Password" class="form-control">
+                                        <span asp-validation-for="Perdoruesi.Password"></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Shto</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

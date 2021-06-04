@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BiblotekaWeb.Areas.admin.Models.Stafi>
+
+@{
+    ViewData["Title"] = "Stafi";
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="page-title">Stafi</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Ballina</a></li>
+                            <li class="breadcrumb-item active">Stafi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Header -->
+            <!-- Cards -->
+            <div class="section-header">
+                <div class="col-auto text-right float-right ml-auto">
+                    <a asp-action="Shto" asp-controller="Stafi" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                </div>
+                <h4 class="section-title">Lista e Stafit</h4>
+                <div class="line">
+                    <div class="col ml-md-n2 profile-user-info">
+                        <h4 class="user-name mb-0">@User.Identity.Name</h4>
+                        <h6 class="text-muted">@User.Claims.ElementAt(2).Value</h6>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4 d-flex">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Card with button</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a class="btn btn-primary" href="#">Go somewhere</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Cards -->
+        <!-- Footer -->
+        <footer>
+            <p>Copyright © 2021 Library Management System.</p>
+        </footer>
+        <!-- /Footer -->
+
+    </div>
+    <!-- /Page Wrapper -->
+
+    }
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
