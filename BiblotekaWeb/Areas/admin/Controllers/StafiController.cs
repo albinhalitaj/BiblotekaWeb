@@ -32,6 +32,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         public async Task<IActionResult> Index()
         {
             var stafi = await _context.Stafis.ToListAsync();
+            
             return View(stafi);
         }
         [HttpGet]
@@ -46,30 +47,33 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             if (ModelState.IsValid)
             {
                 var stafid = Convert.ToInt32(User.FindFirst(x => x.Type == "Id")?.Value);
-                var roliId = Convert.ToInt32(User.FindFirst(x => x.Type == "Id")?.Value);
+                var perdoruesi = _context.Perdoruesis.FirstOrDefault(x => x.PerdoruesiId == model.Perdoruesi.PerdoruesiId);
 
                 using (var transaction = _context.Database.BeginTransaction())
                 {
                     try
                     {
-
                         model.Stafi.InsertBy = stafid;
-                        model.Perdoruesi.RoliId = roliId;
+                        model.Perdoruesi.PerdoruesiId = stafid;
                         model.Stafi.InsertDate = DateTime.Now;
                         await _context.Stafis.AddAsync(model.Stafi);
-                        await _context.SaveChangesAsync();
+                        await _context.Perdoruesis.AddAsync(model.Perdoruesi);
+                         _context.SaveChanges();
+                        transaction.Commit();
                         _notyf.Custom("Stafi u shtua!", 5, "#FFBC53", "fa fa-check");
-                        return RedirectToAction(nameof(Index));
-
                         
+                                               
                     }
                     catch (Exception)
                     {
 
-                        throw;
+                        transaction.Rollback();
+                        _notyf.Error("Ndodhi një gabim! Ju lutemi provoni përsëri.", 5);
                     }
 
+
                 }
+                return RedirectToAction(nameof(Index));
             }
             return View(model);
         }

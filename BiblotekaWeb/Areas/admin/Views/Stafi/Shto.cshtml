@@ -96,10 +96,10 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Roli</label>
-                                        <select asp-for="Perdoruesi.Roli.RoliId" asp-items="@(new SelectList(ViewBag.Rolet, "RoliId", "EmriRolit"))" class="form-control">
+                                        <select asp-for="Perdoruesi.RoliId" asp-items="@(new SelectList(ViewBag.Rolet, "RoliId", "EmriRolit"))" class="form-control">
                                             <option>Selekto Rolin</option>
                                         </select>
-                                        <span asp-validation-for="Perdoruesi.Roli.RoliId"></span>
+                                        <span asp-validation-for="Perdoruesi.RoliId"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">

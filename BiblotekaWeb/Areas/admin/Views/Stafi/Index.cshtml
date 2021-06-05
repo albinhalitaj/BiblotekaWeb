@@ -35,23 +35,27 @@
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4 d-flex">
                     <div class="card flex-fill">
-                        <div class="card-header">
-                            <h4 class="user-name mb-0">@User.Identity.Name</h4>
-                          
-                        </div>
-                        <div class="card-body">
+                        @foreach (var stafi in Model)
+                         {
 
-                            <div class="col-auto profile-image">
-                                <a href="#">
-                                    <img style="height:130px;width:130px" class="rounded-circle" alt="User Image" src="~/Admin/img/user.png">
-                                </a>
+                            <div class="card-header">
+                                <h4 class="user-name mb-0">@stafi.Emri @stafi.Mbiemri</h4>
+
                             </div>
-                            <h6 style="margin-left:50px" class="text-muted">@User.Claims.ElementAt(2).Value</h6>
+                            <div class="card-body">
+
+                                <div class="col-auto profile-image">
+                                    <a href="#">
+                                        <img style="height:130px;width:130px" class="rounded-circle" alt="User Image" src="~/Admin/img/user.png">
+                                    </a>
+                                </div>
+                              
 
 
-                            <a style="margin-left:50px" class="btn btn-primary" href="#">Detalet</a>
+                                <a style="margin-left:50px" class="btn btn-primary" href="#">Detalet</a>
 
-                        </div>
+                            </div>
+                         }
                     </div>
                 </div>
             </div>
