@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Stafi";
+
     <!-- Page Wrapper -->
     <div class="page-wrapper">
         <div class="content container-fluid">
@@ -26,8 +27,7 @@
                 <h4 class="section-title">Lista e Stafit</h4>
                 <div class="line">
                     <div class="col ml-md-n2 profile-user-info">
-                        <h4 class="user-name mb-0">@User.Identity.Name</h4>
-                        <h6 class="text-muted">@User.Claims.ElementAt(2).Value</h6>
+                        
                     </div>
 
                 </div>
@@ -36,11 +36,20 @@
                 <div class="col-12 col-md-6 col-lg-4 d-flex">
                     <div class="card flex-fill">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">Card with button</h5>
+                            <h4 class="user-name mb-0">@User.Identity.Name</h4>
+                          
                         </div>
                         <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a class="btn btn-primary" href="#">Go somewhere</a>
+
+                            <div class="col-auto profile-image">
+                                <a href="#">
+                                    <img style="height:130px;width:130px" class="rounded-circle" alt="User Image" src="~/Admin/img/user.png">
+                                </a>
+                            </div>
+                            <h6 style="margin-left:50px" class="text-muted">@User.Claims.ElementAt(2).Value</h6>
+
+
+                            <a style="margin-left:50px" class="btn btn-primary" href="#">Detalet</a>
 
                         </div>
                     </div>

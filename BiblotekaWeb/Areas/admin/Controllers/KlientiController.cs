@@ -38,7 +38,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         public IActionResult Shto(Klienti klienti)
         {
             var klientiId = string.Empty;
-            using (var con = new SqlConnection(Configuration.GetConnectionString("ConnEndrit")))
+            using (var con = new SqlConnection(Configuration.GetConnectionString("FatlindConn")))
                 klientiId = con.Query<string>("select dbo.KlientiID()").FirstOrDefault();
             if (!ModelState.IsValid) return View(klienti);
             klienti.KlientiId = klientiId;

@@ -1,12 +1,18 @@
-﻿using AspNetCoreHero.ToastNotification.Abstractions;
-using BiblotekaWeb.Areas.admin.Models;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
-using BiblotekaWeb.Areas.admin.ViewModels;
+using System.Transactions;
+using AspNetCoreHero.ToastNotification.Abstractions;
+using BiblotekaWeb.Areas.admin.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using BiblotekaWeb.Areas.admin.Data;
+using BiblotekaWeb.Areas.admin.ViewModels;
 
 namespace BiblotekaWeb.Areas.admin.Controllers
 {
@@ -23,9 +29,9 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             _context = context;
             this._notyf = notyf;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var stafi = _context.Stafis.ToList();
+            var stafi = await _context.Stafis.ToListAsync();
             return View(stafi);
         }
         [HttpGet]
@@ -37,30 +43,35 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Shto(StafPerdoruesitViewModel model)
         {
+            if (ModelState.IsValid)
+            {
                 var stafid = Convert.ToInt32(User.FindFirst(x => x.Type == "Id")?.Value);
+                var roliId = Convert.ToInt32(User.FindFirst(x => x.Type == "Id")?.Value);
 
                 using (var transaction = _context.Database.BeginTransaction())
                 {
                     try
                     {
-                        if (ModelState.IsValid)
-                        {
-                            model.Stafi.InsertBy = stafid;
-                            model.Stafi.InsertDate = DateTime.Now;
-                            await _context.Stafis.AddAsync(model.Stafi);
-                            await _context.SaveChangesAsync();
-                            _notyf.Custom("Stafi u shtua!", 5, "#FFBC53", "fa fa-check");
-                            return RedirectToAction(nameof(Index));
-                        }
-                        return View(model);
+
+                        model.Stafi.InsertBy = stafid;
+                        model.Perdoruesi.RoliId = roliId;
+                        model.Stafi.InsertDate = DateTime.Now;
+                        await _context.Stafis.AddAsync(model.Stafi);
+                        await _context.SaveChangesAsync();
+                        _notyf.Custom("Stafi u shtua!", 5, "#FFBC53", "fa fa-check");
+                        return RedirectToAction(nameof(Index));
+
+                        
                     }
                     catch (Exception)
                     {
 
                         throw;
                     }
-                    
+
                 }
+            }
+            return View(model);
         }
 
 
