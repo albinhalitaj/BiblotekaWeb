@@ -32,4 +32,9 @@
     <Folder Include="wwwroot\Rotativa" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\Admin\plugins\apexchart\apexcharts.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\Admin\plugins\apexchart\chart-data.js" />
+  </ItemGroup>
+
 </Project>
