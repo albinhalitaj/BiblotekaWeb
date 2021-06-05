@@ -13,6 +13,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BiblotekaWeb.Areas.admin.Data;
 using BiblotekaWeb.Areas.admin.ViewModels;
+using Microsoft.Data.SqlClient;
+using AspNetCoreHero.ToastNotification.Notyf.Models;
+using Dapper;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Hosting;
 
 namespace BiblotekaWeb.Areas.admin.Controllers
 {
@@ -22,12 +27,14 @@ namespace BiblotekaWeb.Areas.admin.Controllers
     {
         private readonly BiblotekaWebContext _context;
         private readonly INotyfService _notyf;
+        private IConfiguration Config { get; }
 
 
-        public StafiController(BiblotekaWebContext context,INotyfService notyf)
+        public StafiController(BiblotekaWebContext context,INotyfService notyf,IConfiguration config)
         {
             _context = context;
             this._notyf = notyf;
+            Config = config;
         }
         public async Task<IActionResult> Index()
         {
@@ -44,8 +51,14 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Shto(StafPerdoruesitViewModel model)
         {
+           
             if (ModelState.IsValid)
             {
+                var id = string.Empty;
+                await using (var con = new SqlConnection(Config.GetConnectionString("FatlindConn")))
+                {
+                    id = con.Query<string>("SELECT IDENT_CURRENT('Stafi') + 1").FirstOrDefault();
+                }
                 var stafid = Convert.ToInt32(User.FindFirst(x => x.Type == "Id")?.Value);
                 var perdoruesi = _context.Perdoruesis.FirstOrDefault(x => x.PerdoruesiId == model.Perdoruesi.PerdoruesiId);
 
@@ -54,17 +67,19 @@ namespace BiblotekaWeb.Areas.admin.Controllers
                     try
                     {
                         model.Stafi.InsertBy = stafid;
-                        model.Perdoruesi.PerdoruesiId = stafid;
                         model.Stafi.InsertDate = DateTime.Now;
+                        model.Perdoruesi.IsActive = 1.ToString();
+                        model.Perdoruesi.StafiId =Convert.ToInt32(id);
                         await _context.Stafis.AddAsync(model.Stafi);
+                        await _context.SaveChangesAsync();
                         await _context.Perdoruesis.AddAsync(model.Perdoruesi);
-                         _context.SaveChanges();
+                        await _context.SaveChangesAsync();
                         transaction.Commit();
                         _notyf.Custom("Stafi u shtua!", 5, "#FFBC53", "fa fa-check");
                         
                                                
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
 
                         transaction.Rollback();
