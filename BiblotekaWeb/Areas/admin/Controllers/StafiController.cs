@@ -55,7 +55,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             if (ModelState.IsValid)
             {
                 var id = string.Empty;
-                await using (var con = new SqlConnection(Config.GetConnectionString("FatlindConn")))
+                await using (var con = new SqlConnection(Config.GetConnectionString("Conn")))
                 {
                     id = con.Query<string>("SELECT IDENT_CURRENT('Stafi') + 1").FirstOrDefault();
                 }
