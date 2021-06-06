@@ -119,30 +119,30 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         [HttpGet]
         public IActionResult Edito(int id)
         {
-                
-
-
-            return View();
+            var stafi = _context.Stafis.FirstOrDefault(s => s.StafiId == id);    
+            return View(stafi);
         }
 
 
         [HttpPost]
-        public IActionResult Edito(string id, StafPerdoruesitViewModel stafi)
+        public IActionResult Edito(int id, Stafi model)
         {
-            if (!ModelState.IsValid) return View(stafi);
-            var staf = _context.Stafis.FirstOrDefault(x => x.StafiId == stafi.Stafi.StafiId);
+            if (!ModelState.IsValid) return View(model);
+            var staf = _context.Stafis.FirstOrDefault(x => x.StafiId == model.StafiId);
+            var perdoruesi = _context.Perdoruesis.FirstOrDefault(p => p.StafiId == staf.StafiId);
+            perdoruesi.RoliId = model.Roli;
             if (staf.Lun == null)
-                staf.Lun = 1;
+                model.Lun = 1;
             else
-                staf.Lun++;
-            staf.Lub = Convert.ToInt32(User.Claims.ElementAt(1).Value);
-            staf.Lud = DateTime.Now;
-            staf.StafiId = Convert.ToInt32(id);
-            staf.InsertBy = staf.InsertBy;
-            staf.InsertDate = staf.InsertDate;
-            _context.Stafis.Update(staf);
+                model.Lun++;
+            model.Lub = Convert.ToInt32(User.Claims.ElementAt(1).Value);
+            model.Lud = DateTime.Now;
+            model.StafiId = id;
+            model.InsertBy = staf.InsertBy;
+            model.InsertDate = staf.InsertDate;
+            _context.Stafis.Update(model);
             _context.SaveChangesAsync();
-            _notyf.Custom("Klienti u përditësua!", 5, "#FFBC53", "fa fa-check");
+            _notyf.Custom("Stafi u përditësua!", 5, "#FFBC53", "fa fa-check");
             return RedirectToAction(nameof(Index));
         }
         

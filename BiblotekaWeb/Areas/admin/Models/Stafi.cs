@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -14,7 +15,7 @@ namespace BiblotekaWeb.Areas.admin.Models
             Huazimis = new HashSet<Huazimi>();
             Perdoruesis = new HashSet<Perdoruesi>();
         }
-       
+
         public int StafiId { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
 
@@ -41,6 +42,9 @@ namespace BiblotekaWeb.Areas.admin.Models
         public int? Lub { get; set; }
         public int? Lun { get; set; }
         public DateTime? Lud { get; set; }
+        
+        [NotMapped]
+        public int Roli { get; set; }
 
         public virtual ICollection<Aktiviteti> Aktivitetis { get; set; }
         public virtual ICollection<Huazimi> Huazimis { get; set; }
