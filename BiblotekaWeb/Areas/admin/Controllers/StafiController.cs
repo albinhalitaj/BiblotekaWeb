@@ -55,7 +55,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             if (ModelState.IsValid)
             {
                 var id = string.Empty;
-                await using (var con = new SqlConnection(Config.GetConnectionString("Conn")))
+                await using (var con = new SqlConnection(Config.GetConnectionString("FatlindConn")))
                 {
                     id = con.Query<string>("SELECT IDENT_CURRENT('Stafi') + 1").FirstOrDefault();
                 }
@@ -106,11 +106,46 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Detalet()
+        public IActionResult Detalet(int id)
         {
-            var user = _context.Stafis.FirstOrDefault(x => x.StafiId == id);
-            return View(user);
+            var staf = _context.Stafis.FirstOrDefault(s => s.StafiId == id);
+            var perdoruesi = _context.Perdoruesis.Include(r => r.Roli).FirstOrDefault(p => p.StafiId == staf.StafiId);
+            ViewBag.Roli = perdoruesi.Roli.EmriRolit;    
+            return View(staf);
+
+
+           
         }
+        [HttpGet]
+        public IActionResult Edito(int id)
+        {
+                
+
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult Edito(string id, StafPerdoruesitViewModel stafi)
+        {
+            if (!ModelState.IsValid) return View(stafi);
+            var staf = _context.Stafis.FirstOrDefault(x => x.StafiId == stafi.Stafi.StafiId);
+            if (staf.Lun == null)
+                staf.Lun = 1;
+            else
+                staf.Lun++;
+            staf.Lub = Convert.ToInt32(User.Claims.ElementAt(1).Value);
+            staf.Lud = DateTime.Now;
+            staf.StafiId = Convert.ToInt32(id);
+            staf.InsertBy = staf.InsertBy;
+            staf.InsertDate = staf.InsertDate;
+            _context.Stafis.Update(staf);
+            _context.SaveChangesAsync();
+            _notyf.Custom("Klienti u përditësua!", 5, "#FFBC53", "fa fa-check");
+            return RedirectToAction(nameof(Index));
+        }
+        
 
     }
 }
