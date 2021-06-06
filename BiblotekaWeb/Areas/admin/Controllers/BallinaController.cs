@@ -57,7 +57,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             // ADD HUAZIMET TO ARRAY
             var huazimetData = new int[12];
             foreach (var d in huazimet)
-                for (var i = 1; i < 12; i++)
+                for (var i = 0; i < 12; i++)
                     if ((Convert.ToInt32(d.Muaji) - 1) == i)
                         huazimetData[i] = d.Numri;
             
