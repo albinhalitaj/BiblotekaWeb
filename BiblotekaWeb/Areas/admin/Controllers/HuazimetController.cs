@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Transactions;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using BiblotekaWeb.Areas.admin.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using BiblotekaWeb.Areas.admin.Data;
 using BiblotekaWeb.Areas.admin.ViewModels;
 using ClosedXML.Excel;
 using FluentEmail.Core;
@@ -28,11 +24,11 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         private readonly INotyfService _notyf;
         private readonly IFluentEmail _email;
 
-        public HuazimetController(BiblotekaWebContext context, INotyfService _notyf,[FromServices] IFluentEmail _email)
+        public HuazimetController(BiblotekaWebContext context, INotyfService notyf,[FromServices] IFluentEmail email)
         {
             _context = context;
-            this._notyf = _notyf;
-            this._email = _email;
+            _notyf = notyf;
+            _email = email;
         }
         
         public async Task<IActionResult> Index()
@@ -96,7 +92,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
                         transaction.Commit();
                         _notyf.Custom("Libri u huazua me sukses!", 5, "#FFBC53", "fa fa-check");
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         transaction.Rollback();
                         _notyf.Error("Ndodhi një gabim! Ju lutemi provoni përsëri.",5);
@@ -108,13 +104,17 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Kthe(int? id)
+        public IActionResult Kthe(int? id)
         {
-            var huazimi = await _context.Huazimis.Where(x => x.HuazimiId == id && x.Statusi).FirstOrDefaultAsync();
-            ViewBag.NoOfDays = (DateTime.Now - huazimi.DataKthimit).Days;
-            var model = _context.Huazimis.Include(x => x.Klienti)
-                .Include(x => x.Libri).FirstOrDefault(x => x.HuazimiId == huazimi.HuazimiId && x.Statusi);
-            return View(model);
+            var huazimi = _context.Huazimis.FirstOrDefault(x => x.HuazimiId == id && x.Statusi);
+            if (huazimi != null)
+            {
+                ViewBag.NoOfDays = (DateTime.Now - huazimi.DataKthimit).Days;
+                var model = _context.Huazimis.Include(x => x.Klienti)
+                    .Include(x => x.Libri).FirstOrDefault(x => x.HuazimiId == huazimi.HuazimiId && x.Statusi);
+                return View(model);
+            }
+            return View();
         }
 
         [HttpPost]
@@ -169,10 +169,10 @@ namespace BiblotekaWeb.Areas.admin.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Njofto(int? id)
+        public IActionResult Njofto(int? id)
         {
-            var huazimi = await _context.Huazimis.Include(x => x.Klienti).Include(x => x.Libri)
-                .Where(x => x.HuazimiId == id).FirstOrDefaultAsync();
+            var huazimi = _context.Huazimis.Include(x => x.Klienti)
+                .Include(x => x.Libri).FirstOrDefault(x => x.HuazimiId == id);
             var model = new HuazimiMesazhiViewModel
             {
                 Huazimi = huazimi,
@@ -187,8 +187,9 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             var klienti = (from s in _context.Huazimis
                 where s.HuazimiId == id
                 select s.Klienti).FirstOrDefault();
-            SendEmailToClient(string.Concat(klienti.Emri, " ", klienti.Mbiemri), klienti.Emaili,
-                model.Mesazhi.Përmbajtja, model.Mesazhi.Subjekti);
+            if (klienti != null)
+                await SendEmailToClient(string.Concat(klienti.Emri, " ", klienti.Mbiemri), klienti.Emaili,
+                    model.Mesazhi.Përmbajtja, model.Mesazhi.Subjekti);
             _notyf.Custom("Emaili është dërguar me sukses!", 5, "#FFBC53", "fa fa-check");
             return RedirectToAction(nameof(Index));
         }

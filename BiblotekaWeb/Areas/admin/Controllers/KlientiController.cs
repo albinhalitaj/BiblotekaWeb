@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using AspNetCoreHero.ToastNotification.Abstractions;
@@ -8,6 +9,7 @@ using ClosedXML.Excel;
 using Dapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Rotativa.AspNetCore;
@@ -31,14 +33,29 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         public IActionResult Index() => View(_klientiService.GetAllKlients());
 
         [HttpGet]
-        public IActionResult Shto() => View();
+        public IActionResult Shto()
+        {
+            return View();
+        }
 
+        public IActionResult GetCities(string country)
+        {
+            var cities = country switch
+            {
+                "Kosovë" => BallinaData.GetCities(country),
+                "Shqipëri" => BallinaData.GetCities(country),
+                "Maqedoni" => BallinaData.GetCities(country),
+                "Mali i Zi" => BallinaData.GetCities(country),
+                _ => null
+            };
+            return Json(new {cities});
+        }
 
         [HttpPost]
         public IActionResult Shto(Klienti klienti)
         {
             var klientiId = string.Empty;
-            using (var con = new SqlConnection(Configuration.GetConnectionString("FatlindConn")))
+            using (var con = new SqlConnection(Configuration.GetConnectionString("Conn")))
                 klientiId = con.Query<string>("select dbo.KlientiID()").FirstOrDefault();
             if (!ModelState.IsValid) return View(klienti);
             klienti.KlientiId = klientiId;

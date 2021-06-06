@@ -49,13 +49,13 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Shto(StafPerdoruesitViewModel model)
+        public IActionResult Shto(StafPerdoruesitViewModel model)
         {
            
             if (ModelState.IsValid)
             {
                 var id = string.Empty;
-                await using (var con = new SqlConnection(Config.GetConnectionString("Conn")))
+                using (var con = new SqlConnection(Config.GetConnectionString("Conn")))
                 {
                     id = con.Query<string>("SELECT IDENT_CURRENT('Stafi') + 1").FirstOrDefault();
                 }
@@ -70,23 +70,20 @@ namespace BiblotekaWeb.Areas.admin.Controllers
                         model.Stafi.InsertDate = DateTime.Now;
                         model.Perdoruesi.IsActive = 1.ToString();
                         model.Perdoruesi.StafiId =Convert.ToInt32(id);
-                        await _context.Stafis.AddAsync(model.Stafi);
-                        await _context.SaveChangesAsync();
-                        await _context.Perdoruesis.AddAsync(model.Perdoruesi);
-                        await _context.SaveChangesAsync();
+                        _context.Stafis.AddAsync(model.Stafi);
+                        _context.SaveChangesAsync();
+                        _context.Perdoruesis.AddAsync(model.Perdoruesi);
+                        _context.SaveChangesAsync();
                         transaction.Commit();
                         _notyf.Custom("Stafi u shtua!", 5, "#FFBC53", "fa fa-check");
                         
                                                
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
-
                         transaction.Rollback();
                         _notyf.Error("Ndodhi një gabim! Ju lutemi provoni përsëri.", 5);
                     }
-
-
                 }
                 return RedirectToAction(nameof(Index));
             }

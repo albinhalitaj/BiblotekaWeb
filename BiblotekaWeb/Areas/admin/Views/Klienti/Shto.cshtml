@@ -74,16 +74,24 @@
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
-                                        <label>Qyteti</label>
-                                        <input asp-for="Qyteti" class="form-control">
-                                        <span asp-validation-for="Qyteti"></span>
+                                        <label>Shteti</label>
+                                        <select id="countrylist" asp-for="Shteti" class="form-control">
+                                            <option>Selekto Shtetin</option>
+                                            <option name="kosove" value="Kosovë">Kosovë</option>
+                                            <option name="shqiperi" value="Shqipëri">Shqipëri</option>
+                                            <option name="maqedoni" value="Maqedoni">Maqedoni</option>
+                                            <option name="malizi" value="Mali i Zi">Mali i Zi</option>
+                                        </select>
+                                        <span asp-validation-for="Shteti"></span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
-                                        <label>Shteti</label>
-                                        <input asp-for="Shteti" class="form-control">
-                                        <span asp-validation-for="Shteti"></span>
+                                        <label>Qyteti</label>
+                                        <select id="citiesList" asp-for="Qyteti" class="form-control">
+                                            <option>Selekto Qytetin</option> 
+                                        </select>
+                                        <span asp-validation-for="Qyteti"></span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
@@ -119,6 +127,25 @@
     </div>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#countrylist').change(function () {
+                $("#citiesList").empty();
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetCities")',
+                    dataType: "json",
+                    data: { country: $("#countrylist").val()},
+                    success: function (city){
+                        
+                        for (var i = 0; i < city.cities.length; i++){
+                           $("#citiesList").append('<option value="'+city.cities[i]+'">' + city.cities[i] + '</option>');  
+                        }
+                    }
+                })       
+            })
+        })
+    </script>
 }

@@ -121,12 +121,14 @@
                 <!-- User Menu -->
                 <li class="nav-item dropdown has-arrow">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img"><img class="rounded-circle" src="/Admin/img/profiles/avatar-01.jpg" width="31" alt="Ryan Taylor"></span>
+                        <div class="avatar avatar-sm">
+                            <span class="avatar-title rounded-circle border border-white">@User.Identity.Name[..1]</span>
+                        </div>
                     </a>
                     <div class="dropdown-menu">
                         <div class="user-header">
                             <div class="avatar avatar-sm">
-                                <img src="/Admin/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle">
+                                <span class="avatar-title rounded-circle border border-white">@User.Identity.Name[..1]</span>
                             </div>
                             <div class="user-text">
                                 <h6>@User.Identity.Name</h6>
@@ -183,10 +185,18 @@
                         <li class="menu-title">
                             <span>Menaxhmenti</span>
                         </li>
-
                         <li>
                             <a asp-controller="Stafi" asp-action="Index"><i class="fas fa-holly-berry"></i> <span>Stafi</span></a>
-                            
+                        </li>
+                        <li class="menu-title">
+                            <span>Konfigurimet</span>
+                        </li>
+                        <li>
+                            <a asp-controller="Stafi" asp-action="Index"><i class="fas fa-holly-berry"></i> <span>Gjuhet</span></a>
+                            <a asp-controller="Stafi" asp-action="Index"><i class="fas fa-holly-berry"></i> <span>Rolet</span></a>
+                        </li>
+                        <li class="menu-title">
+                            <span>Raportet</span>
                         </li>
                         <li class="submenu">
                             <a href="#"><i class="fas fa-book-reader"></i> <span> Raportet</span> <span class="menu-arrow"></span></a>
@@ -215,8 +225,10 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script type="text/javascript" charset="utf8" src="~/Admin/plugins/datatables/datatables.min.js"></script>
     <script src="~/Admin/plugins/summernote/dist/summernote.min.js"></script>
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
     <script src="~/Admin/plugins/highcharts/highcharts.js"></script>
     <script src="~/Admin/plugins/highcharts/chart-data.js"></script>
+    <script src="~/Admin/plugins/highcharts/kosovo-all.js"></script>
     <script src="~/Admin/js/script.js"></script>
     @await Component.InvokeAsync("Notyf")
     @await RenderSectionAsync("Scripts", false)

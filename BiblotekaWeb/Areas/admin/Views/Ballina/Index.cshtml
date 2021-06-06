@@ -97,7 +97,39 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-6">
-                                <h5 class="card-title">Revenue</h5>
+                                <h5 class="card-title">Statistikë</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div style="width: 500px;margin-left: 100px;height: 915px;min-width: 310px;max-width: 800px;" id="map"></div>
+                    </div>
+                </div>
+                <!-- /Revenue Chart -->
+
+            </div>
+
+            <div class="col-md-12 col-lg-6">
+
+                <!-- Student Chart -->
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <h5 class="card-title">Statistikë</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="highchart-bar"></div>
+                    </div>
+                </div>
+                <!-- /Student Chart -->
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <h5 class="card-title">Statistikë</h5>
                             </div>
                             <div class="col-6">
                                 <ul class="list-inline-group text-right mb-0 pl-0">
@@ -118,39 +150,6 @@
                         <div id="pie"></div>
                     </div>
                 </div>
-                <!-- /Revenue Chart -->
-
-            </div>
-
-            <div class="col-md-12 col-lg-6">
-
-                <!-- Student Chart -->
-                <div class="card card-chart">
-                    <div class="card-header">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <h5 class="card-title">Number of Students</h5>
-                            </div>
-                            <div class="col-6">
-                                <ul class="list-inline-group text-right mb-0 pl-0">
-                                    <li class="list-inline-item">
-                                        <div class="form-group mb-0 amount-spent-select">
-                                            <select class="form-control form-control-sm">
-                                                <option>Today</option>
-                                                <option>Last Week</option>
-                                                <option>Last Month</option>
-                                            </select>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="highchart-bar"></div>
-                    </div>
-                </div>
-                <!-- /Student Chart -->
             </div>
         </div>
 
@@ -159,7 +158,7 @@
                 <!-- Star Students -->
                 <div class="card flex-fill">
                     <div class="card-header">
-                        <h5 class="card-title">Studentët e fundit</h5>
+                        <h5 class="card-title">Klientët e dalluar</h5>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -169,8 +168,8 @@
                                         <th>ID</th>
                                         <th>Emri Plotë</th>
                                         <th class="text-center">Numri Personal</th>
-                                        <th class="text-center">Emaili</th>
-                                        <th class="text-right">Adresa</th>
+                                        <th class="text-right">Huazimet</th>
+                                        <th class="text-center">Adresa</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -182,8 +181,15 @@
                                             </td>
                                             <td class="text-nowrap">@klient.Emri @klient.Mbiemri</td>
                                             <td class="text-center">@klient.NrPersonal</td>
-                                            <td class="text-center">@klient.Emaili</td>
-                                            <td class="text-right">
+                                            @if (klient.Huazimet == null)
+                                            {
+                                                <td class="text-center">0</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-center">@klient.Huazimet</td>
+                                            }
+                                            <td class="text-center">
                                                 <div>@klient.Adresa</div>
                                             </td>
                                         </tr>

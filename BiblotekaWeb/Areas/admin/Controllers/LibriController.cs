@@ -58,7 +58,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         public async Task<IActionResult> Shto(Libri libri)
         {
             var id = string.Empty;
-            await using (var con = new SqlConnection(Config.GetConnectionString("FatlindConn")))
+            await using (var con = new SqlConnection(Config.GetConnectionString("Conn")))
             {
                 id = con.Query<string>("select dbo.LibriID()").FirstOrDefault();
             }
@@ -79,7 +79,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edito(string id)
+        public IActionResult Edito(string id)
         {
             if (id == null)
             {
@@ -92,7 +92,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edito(string id,Libri libri)
+        public IActionResult Edito(string id,Libri libri)
         {
             var liber = _libriService.GetLibriById(id);
             if (liber.Lun == null)
