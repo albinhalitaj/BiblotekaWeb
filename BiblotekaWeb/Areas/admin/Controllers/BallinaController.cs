@@ -48,7 +48,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         {
             List<ChartViewModel> huazimet = null;
             List<ChartViewModel> kthimet = null;
-            await using (var con = new SqlConnection(_config.GetConnectionString("Conn")))
+            await using (var con = new SqlConnection(_config.GetConnectionString("FatlindConn")))
             {
                 huazimet = con.Query<ChartViewModel>("EXEC usp_GetHuazimetByMonth").ToList();
                 kthimet = con.Query<ChartViewModel>("EXEC [usp_GetKthimetByMonth]").ToList();

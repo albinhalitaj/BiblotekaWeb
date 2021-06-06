@@ -106,6 +106,11 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+        public IActionResult Detalet()
+        {
+            var user = _context.Stafis.FirstOrDefault(x => x.StafiId == id);
+            return View(user);
+        }
 
     }
 }
