@@ -4,70 +4,69 @@
     ViewData["Title"] = "Stafi";
 
     <!-- Page Wrapper -->
-    <div class="page-wrapper">
-        <div class="content container-fluid">
-            <!-- Page Header -->
-            <div class="page-header">
-                <div class="row">
-                    <div class="col">
-                        <h3 class="page-title">Stafi</h3>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Ballina</a></li>
-                            <li class="breadcrumb-item active">Stafi</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- /Page Header -->
-            <!-- Cards -->
-            <div class="section-header">
-                <div class="col-auto text-right float-right ml-auto">
-                    <a asp-action="Shto" asp-controller="Stafi" class="btn btn-primary"><i class="fas fa-plus"></i></a>
-                </div>
-                <h4 class="section-title">Lista e Stafit</h4>
-                <div class="line">
-                    <div class="col ml-md-n2 profile-user-info">
-                        
-                    </div>
-
-                </div>
-            </div>
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-4 d-flex">
-                    <div class="card flex-fill">
-                        @foreach (var stafi in Model)
-                         {
-
-                            <div class="card-header">
-                                <h4 class="user-name mb-0">@stafi.Emri @stafi.Mbiemri</h4>
-
-                            </div>
-                            <div class="card-body">
-
-                                <div class="col-auto profile-image">
-                                    <a href="#">
-                                        <img style="height:130px;width:130px" class="rounded-circle" alt="User Image" src="~/Admin/img/user.png">
-                                    </a>
-                                </div>
-                              
-
-
-                                <a style="margin-left:50px" class="btn btn-primary" href="#">Detalet</a>
-
-                            </div>
-                         }
-                    </div>
+                <div class="col">
+                    <h3 class="page-title">Stafi</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Ballina</a></li>
+                        <li class="breadcrumb-item active">Stafi</li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <!-- /Cards -->
-        <!-- Footer -->
-        <footer>
-            <p>Copyright © 2021 Library Management System.</p>
-        </footer>
-        <!-- /Footer -->
+        <!-- /Page Header -->
+        <!-- Cards -->
+        <div class="section-header">
+            <div class="col-auto text-right float-right ml-auto">
+                <a asp-action="Shto" asp-controller="Stafi" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+            </div>
+            <h4 class="section-title">Lista e Stafit</h4>
+            <div class="line">
+                <div class="col ml-md-n2 profile-user-info">
 
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach (var stafi in Model)
+            {
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="user-name mb-0">@stafi.Emri @stafi.Mbiemri</h4>
+
+                        </div>
+                        <div class="card-body">
+
+                            <div class="profile-image">
+                                <a href="#">
+                                    <img style="height:130px;width:130px;margin-left:30px;margin-bottom:5px " class="rounded-circle" alt="User Image" src="~/Admin/img/user.png">
+                                </a>
+                            </div>
+
+
+                            <a asp-action="Detalet" asp-controller="Stafi"style="margin-left:50px" class="btn btn-primary"  >Detalet</a>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
+    <!-- /Cards -->
+    <!-- Footer -->
+    <footer>
+        <p>Copyright © 2021 Library Management System.</p>
+    </footer>
+    <!-- /Footer -->
+
+</div>
     <!-- /Page Wrapper -->
 
     }

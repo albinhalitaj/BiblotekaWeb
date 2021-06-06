@@ -849,6 +849,7 @@ button.bg-danger:hover {
 }
 .card-header {
 	border-bottom: 1px solid #e6e6e6;
+	margin-right:20px;
 	padding: 1rem 1.5rem;
 }
 .card-footer {
@@ -2971,9 +2972,9 @@ table.table-inbox tbody tr.checked {
 		padding: 0.9375rem;
 	}
 	.profile-image {
-		flex: 0 0 100%;
-		margin-bottom: 20px;
-		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 	.profile-user-info {
 		text-align: center;
