@@ -17,7 +17,7 @@ using Rotativa.AspNetCore;
 namespace BiblotekaWeb.Areas.admin.Controllers
 {
     [Area("admin")]
-    [Authorize]
+    [Authorize(Roles = "Administrator,Punëtor")]
     public class HuazimetController : Controller
     {
         private readonly BiblotekaWebContext _context;
@@ -202,6 +202,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             await email.SendAsync();
         }
 
+        [Authorize(Roles = "Administrator")]
         public IActionResult Print()
         {
             const string footer = "--footer-center \"Copyright © 2021 Library Management System.  Page: [page]/[toPage]\"" + " --footer-line --footer-font-size \"10\" --footer-font-name \"Poppins light\"";

@@ -1,4 +1,4 @@
-﻿@model BiblotekaWeb.Areas.admin.Models.Stafi
+﻿@model BiblotekaWeb.Areas.admin.ViewModels.StafPerdoruesitViewModel
 
 @{
     ViewData["Title"] = "Edito";
@@ -21,7 +21,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <form asp-action="Edito">
+                        <form asp-action="Edito" >
                             <div class="row">
                                 <div class="col-12">
                                     <h5 class="form-title"><span>Informatat e Stafit</span></h5>
@@ -30,64 +30,78 @@
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Emri</label>
-                                        <input asp-for="Emri" class="form-control">
-                                        <span asp-validation-for="Emri"></span>
+                                        <input asp-for="Stafi.Emri" class="form-control">
+                                        <span asp-validation-for="Stafi.Emri"></span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Mbiemri</label>
-                                        <input asp-for="Mbiemri" class="form-control">
-                                        <span asp-validation-for="Mbiemri"></span>
+                                        <input asp-for="Stafi.Mbiemri" class="form-control">
+                                        <span asp-validation-for="Stafi.Mbiemri"></span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Datalindjes</label>
-                                        <input asp-for="Datalindjes" type="date" class="form-control">
-                                        <span asp-validation-for="Datalindjes"></span>
+                                        <input asp-for="Stafi.Datalindjes" type="date" class="form-control">
+                                        <span asp-validation-for="Stafi.Datalindjes"></span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Gjinia</label>
-                                        <select asp-for="Gjinia" class="form-control">
+                                        <select asp-for="Stafi.Gjinia" class="form-control">
                                             <option>Mashkull</option>
                                             <option>Femer</option>
                                         </select>
-                                        <span asp-validation-for="Gjinia"></span>
+                                        <span asp-validation-for="Stafi.Gjinia"></span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Nr.Kontaktues</label>
-                                        <input asp-for="Telefoni" class="form-control">
-                                        <span asp-validation-for="Telefoni"></span>
+                                        <input asp-for="Stafi.Telefoni" class="form-control">
+                                        <span asp-validation-for="Stafi.Telefoni"></span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Adresa</label>
-                                        <input asp-for="Adresa" class="form-control">
-                                        <span asp-validation-for="Adresa"></span>
+                                        <input asp-for="Stafi.Adresa" class="form-control">
+                                        <span asp-validation-for="Stafi.Adresa"></span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input asp-for="Emaili" class="form-control">
-                                        <span asp-validation-for="Emaili"></span>
+                                        <input asp-for="Stafi.Emaili" class="form-control">
+                                        <span asp-validation-for="Stafi.Emaili"></span>
+                                    </div>
+                                </div>                                
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Username</label>
+                                        <input asp-for="Perdoruesi.Username" class="form-control">
+                                        <span asp-validation-for="Perdoruesi.Username"></span>
+                                    </div>
+                                </div>                                
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Passwordi</label>
+                                        <input asp-for="Perdoruesi.Password" type="password" class="form-control">
+                                        <span asp-validation-for="Perdoruesi.Password"></span>
                                     </div>
                                 </div>                                
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label>Rolet</label>
-                                        <select asp-for="Roli" class="form-control">
-                                            <option>Mashkull</option>
-                                            <option>Femer</option>
+                                        <select asp-for="Perdoruesi.RoliId" asp-items="@(new SelectList(@ViewBag.Rolet, "RoliId", "EmriRolit"))" class="form-control">
+                                            <option>Selekto Rolin</option>
                                         </select>
-                                        <span asp-validation-for="Gjinia"></span>
+                                        <span asp-validation-for="Perdoruesi.Roli.EmriRolit"></span>
                                     </div>
+                                </div>
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary">Edito</button>
                                     </div>

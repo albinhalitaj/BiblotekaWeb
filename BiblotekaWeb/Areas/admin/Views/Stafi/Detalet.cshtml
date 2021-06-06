@@ -11,15 +11,15 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-sm-12">
-                    <h3 class="page-title">Student Details</h3>
+                    <h3 class="page-title">Detalet e Stafit</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Ballina">Ballina</a></li>
                         <li class="breadcrumb-item active">Stafi</li>
                     </ul>
                 </div>
                 <div class="col-auto text-right float-right ml-auto">
-                    <a asp-action="Edito" asp-controller="Stafi" class="btn btn-primary">Edito</a>
-                    <a asp-action="Fshij" target="_blank" class="btn btn-outline-primary mr-2">Fshij</a>
+                    <a asp-action="Edito" asp-route-id="@Model.StafiId" asp-controller="Stafi" class="btn btn-primary">Edito</a>
+                    <a asp-action="Fshi" asp-route-id="@Model.StafiId" class="btn btn-outline-primary mr-2">Fshi</a>
                 </div>
             </div>
             </div>
@@ -31,10 +31,9 @@
                     <div class="col-md-12">
                         <div class="about-info">
                             <h4>About Me</h4>
-
                             <div class="media mt-3">
-                                <img src="assets/img/user.jpg" class="mr-3" alt="...">
-                                <div class="media-body">
+                                <img src="~/Admin/img/admin.jpg" style="height: 300px; width: 270px" class="mr-3" alt="...">
+                                <div class="media-body" style="margin-left: 50px">
                                     <ul>
                                         <li>
                                             <span class="title-span">Emri : </span>
@@ -45,8 +44,8 @@
                                             <span>@Model.Mbiemri</span>
                                         </li>
                                         <li>
-                                            <span class="title-span">Datelindja </span>
-                                            <span>@Model.Datalindjes</span>
+                                            <span class="title-span">Datëlindja : </span>
+                                            <span>@Model.Datalindjes.ToString("dd/MM/yyyy")</span>
                                         </li>
                                         <li>
                                             <span class="title-span">Email : </span>
@@ -69,12 +68,6 @@
                                             <span>@ViewBag.Roli</span>
                                         </li>
                                     </ul>
-                                </div>
-                            </div>
-
-                            <div class="row mt-3">
-                                <div class="col-md-12">
-                                    <p>Hello I am Daisy Parks. Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.</p>
                                 </div>
                             </div>
                         </div>

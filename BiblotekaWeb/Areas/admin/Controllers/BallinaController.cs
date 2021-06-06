@@ -44,6 +44,11 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             return View(model);
         }
 
+        public IActionResult AccessDenied()
+        {
+            return View("_AccessDenied");
+        }
+
 
         public async Task<IActionResult> GetData()
         {

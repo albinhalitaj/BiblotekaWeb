@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BiblotekaWeb.Areas.admin.Controllers
 {
     [Area("admin")]
-    [Authorize]
+    [Authorize(Roles = "Administrator,Punëtor")]
     public class KategoriaController : Controller
     {
         private readonly BiblotekaWebContext _context;

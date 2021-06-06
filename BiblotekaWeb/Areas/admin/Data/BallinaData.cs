@@ -201,7 +201,7 @@ namespace BiblotekaWeb.Areas.admin.Data
                     "Skënderaj",
                     "Shtime",
                     "Shtërpcë",
-                    "Suharekë",
+                    "Therandë",
                     "Ferizaj",
                     "Viti",
                     "Vushtrri",

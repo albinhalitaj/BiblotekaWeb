@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ClosedXML.Excel;
 using Dapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
@@ -18,6 +19,7 @@ using Rotativa.AspNetCore;
 namespace BiblotekaWeb.Areas.admin.Controllers
 {
     [Area("admin")]
+    [Authorize(Roles = "Administrator,Punëtor")]
     public class LibriController : Controller
     {
         private IConfiguration Config { get; }
@@ -127,6 +129,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             return Json(result);
         }
 
+        [Authorize(Roles = "Administrator")]
         public IActionResult Print()
         {
             const string footer = "--footer-center \"Copyright © 2021 Library Management System.  Page: [page]/[toPage]\"" + " --footer-line --footer-font-size \"10\" --footer-font-name \"Poppins light\"";
