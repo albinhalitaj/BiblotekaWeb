@@ -1,3 +1,4 @@
+@model BiblotekaWeb.ViewModels.LibrariaViewModel
 @{
     ViewBag.Title = "title";
     Layout = "_Layout";
@@ -95,9 +96,9 @@
                 <div class="col-xs-12 col-md-10 pull-right">
                     <h4>Kutia për kërkim</h4>
                     <div class="space-5"></div>
-                    <form action="#">
+                    <form asp-action="Search" asp-route-filter="Titull">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Shkruaj titullin e librit">
+                            <input type="text" class="form-control" name="query" placeholder="Shkruaj titullin e librit">
                             <div class="input-group-btn">
                                 <button type="submit" class="btn btn-primary"><i class="icofont icofont-search-alt-2"></i></button>
                             </div>
@@ -105,10 +106,13 @@
                     </form>
                     <div class="space-30"></div>
                     <div class="row">
-                        <div class="pull-left col-xs-12 col-sm-5 col-md-6">
-                            <p>Rezultatet për <a href="" class="text-primary">"How To Be a Designer"</a></p>
-                            <p><strong>6</strong> nga <strong>76</strong> libra u gjetën</p>
-                        </div>
+                        @if (!string.IsNullOrEmpty(Model.SearchString))
+                        {
+                            <div class="pull-left col-xs-12 col-sm-5 col-md-6">
+                                <p>Rezultatet për <a href="" class="text-primary">"@Model.SearchString"</a></p>
+                                <p><strong>@Model.Librat.Count()</strong> nga <strong>@ViewBag.TotalLibra</strong> libra u gjetën</p>
+                            </div>
+                        }
                         <div class="pull-right col-xs-12 col-sm-7 col-md-6">
                             <form class="form-horizontal">
                                 <div class="form-group">
@@ -130,150 +134,33 @@
                     <hr>
                     <div class="space-20"></div>
                     <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <div class="category-item well yellow">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <img src="images/book/book-xs-1.jpg" class="media-object" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h5>Smothered In Hughs</h5>
-                                        <h6>By John Doe</h6>
-                                        <div class="space-10"></div>
-                                        <ul class="list-inline list-unstyled rating-star">
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li><i class="icofont icofont-star"></i></li>
-                                        </ul>
-                                        <div class="space-10"></div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor </p>
-                                        <a href="books.html" class="text-primary">Shiko Librin</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <div class="category-item well yellow">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <img src="images/book/book-xs-2.jpg" class="media-object" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h5>The Art Of The Surf</h5>
-                                        <h6>By Mako Sheffield</h6>
-                                        <div class="space-10"></div>
-                                        <ul class="list-inline list-unstyled rating-star">
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class=""><i class="icofont icofont-star"></i></li>
-                                            <li><i class="icofont icofont-star"></i></li>
-                                        </ul>
-                                        <div class="space-10"></div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor </p>
-                                        <a href="books.html" class="text-primary">See the Book</a>
+                        @foreach (var liber in Model.Librat)
+                        {
+                            <div class="col-xs-12 col-md-6">
+                                <div class="category-item well yellow">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <img src="~/Admin/img/bookImages/@liber.ImageName" width="153" height="238" class="media-object" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <h5>@liber.Titulli</h5>
+                                            <h6>Nga @liber.Autori</h6>
+                                            <div class="space-10"></div>
+                                            <ul class="list-inline list-unstyled rating-star">
+                                                <li class="active"><i class="icofont icofont-star"></i></li>
+                                                <li class="active"><i class="icofont icofont-star"></i></li>
+                                                <li class="active"><i class="icofont icofont-star"></i></li>
+                                                <li class="active"><i class="icofont icofont-star"></i></li>
+                                                <li><i class="icofont icofont-star"></i></li>
+                                            </ul>
+                                            <div class="space-10"></div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor </p>
+                                            <a href="books.html" class="text-primary">Shiko Librin</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <div class="category-item well yellow">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <img src="images/book/book-xs-3.jpg" class="media-object" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h5>Creative Business</h5>
-                                        <h6>By Sarah Smith</h6>
-                                        <div class="space-10"></div>
-                                        <ul class="list-inline list-unstyled rating-star">
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                        </ul>
-                                        <div class="space-10"></div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor </p>
-                                        <a href="books.html" class="text-primary">See the Book</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <div class="category-item well yellow">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <img src="images/book/book-xs-4.jpg" class="media-object" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h5>Hustle Now Enjoy Later</h5>
-                                        <h6>By Benjamin Thomson</h6>
-                                        <div class="space-10"></div>
-                                        <ul class="list-inline list-unstyled rating-star">
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class=""><i class="icofont icofont-star"></i></li>
-                                            <li class=""><i class="icofont icofont-star"></i></li>
-                                            <li class=""><i class="icofont icofont-star"></i></li>
-                                        </ul>
-                                        <div class="space-10"></div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor </p>
-                                        <a href="books.html" class="text-primary">See the Book</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <div class="category-item well yellow">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <img src="images/book/book-xs-5.jpg" class="media-object" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h5>The History Of Street Art</h5>
-                                        <h6>By Linda Dinno</h6>
-                                        <div class="space-10"></div>
-                                        <ul class="list-inline list-unstyled rating-star">
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class=""><i class="icofont icofont-star"></i></li>
-                                        </ul>
-                                        <div class="space-10"></div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor </p>
-                                        <a href="books.html" class="text-primary">See the Book</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <div class="category-item well yellow">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <img src="images/book/book-xs-6.jpg" class="media-object" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h5>The Beaten Path</h5>
-                                        <h6>By Ed Espisona</h6>
-                                        <div class="space-10"></div>
-                                        <ul class="list-inline list-unstyled rating-star">
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class="active"><i class="icofont icofont-star"></i></li>
-                                            <li class=""><i class="icofont icofont-star"></i></li>
-                                            <li class=""><i class="icofont icofont-star"></i></li>
-                                            <li class=""><i class="icofont icofont-star"></i></li>
-                                        </ul>
-                                        <div class="space-10"></div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor </p>
-                                        <a href="books.html" class="text-primary">See the Book</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        }
                     </div>
                     <div class="space-60"></div>
                     <div class="row">
@@ -305,15 +192,12 @@
                             <h4>Kategoritë</h4>
                             <hr>
                             <ul class="list-unstyled menu-tip">
-                                <li><a href="#">Music</a></li>
-                                <li><a href="#">Marketing</a></li>
-                                <li><a href="#">Politics</a></li>
-                                <li><a href="#">Creative</a></li>
-                                <li><a href="#">Methematics</a></li>
-                                <li><a href="#">Geography</a></li>
-                                <li><a href="#">Technology</a></li>
+                                @foreach (var kategori in Model.Kategorite)
+                                {
+                                    <li><a asp-action="Sort" asp-route-kategoria="@kategori.Emertimi">@kategori.Emertimi</a></li>
+                                }
                             </ul>
-                            <a href="#" class="btn btn-primary btn-xs">Shiko të gjithë</a>
+                            <a asp-action="Index" class="btn btn-primary btn-xs">Shiko të gjithë</a>
                         </div>
                         <div class="space-20"></div>
                         <div class="sigle-sidebar">

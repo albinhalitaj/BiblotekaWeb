@@ -1,6 +1,6 @@
 ﻿@model BiblotekaWeb.ViewModels.HomeViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Ballina - eBibloteka";
 }
 
 <header class="relative" id="sc1">
@@ -70,8 +70,7 @@
                             <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center">
                                 <div class="jumbotron">
                                     <h1 class="text-white">Më shumë se 458,948 Libra Këtu </h1>
-                                    <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae
-                                        <br/> est Sed non eros elementum nulla sodales ullamcorper.</p>
+                                    <p class="text-white">Një ndër libraritë më të mira në vend ku kemi llojllojshmëri të librave me cilësi të lartë nga autorë të njohur mbarë botës.</p>
                                 </div>
                                 <div class="title-bar white">
                                     <ul class="list-inline list-unstyled">
@@ -95,9 +94,9 @@
                                     <div class="panel-body">
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="book">
-                                                <form action="#">
+                                                <form asp-controller="Libraria" asp-action="Search" asp-route-filter="Titull">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" placeholder="Shkurani titullin e librit">
+                                                        <input type="text" class="form-control" name="query" placeholder="Shkurani titullin e librit">
                                                         <div class="input-group-btn">
                                                             <button type="submit" class="btn btn-primary"><i class="icofont icofont-search-alt-2"></i></button>
                                                         </div>
@@ -105,9 +104,9 @@
                                                 </form>
                                             </div>
                                             <div class="tab-pane fade" id="author">
-                                                <form action="#">
+                                                <form asp-controller="Libraria" asp-action="Search" asp-route-filter="Autor">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" placeholder="Shkruani emrin e autorit">
+                                                        <input type="text" class="form-control" name="query" placeholder="Shkruani emrin e autorit">
                                                         <div class="input-group-btn">
                                                             <button type="submit" class="btn btn-primary"><i class="icofont icofont-search-alt-2"></i></button>
                                                         </div>
@@ -115,9 +114,9 @@
                                                 </form>
                                             </div>
                                             <div class="tab-pane fade" id="publisher">
-                                                <form action="#">
+                                                <form asp-controller="Libraria" asp-action="Search" asp-route-filter="Botues">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" placeholder="Shkruani emrin e botuesit">
+                                                        <input type="text" class="form-control" name="query" placeholder="Shkruani emrin e botuesit">
                                                         <div class="input-group-btn">
                                                             <button type="submit" class="btn btn-primary"><i class="icofont icofont-search-alt-2"></i></button>
                                                         </div>
@@ -139,7 +138,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 text-center">
-                    <h2>About <strong>Us</strong></h2>
+                    <h2>Rreth <strong>Nesh</strong></h2>
                     <div class="space-20"></div>
                     <div class="title-bar blue">
                         <ul class="list-inline list-unstyled">
@@ -148,7 +147,6 @@
                         </ul>
                     </div>
                     <div class="space-30"></div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae est Sed non eros elementum nulla sodales ullamcorper.</p>
                 </div>
             </div>
             <div class="space-60"></div>
@@ -174,24 +172,23 @@
                         <li><i class="icofont icofont-square"></i></li>
                     </ul>
                     <div class="space-15"></div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies eros pellentesque eros interdum, a efficitur tellus malesuada. Nunc non metus quis elit dictum ultricies. Quisque ultricies aliquam arcu.</p>
+                    <p>Biblioteka jonë siguron qasje dhe të lehtë në informacion, ide, libra dhe teknologji që pasurojnë, edukojnë dhe fuqizojnë çdo individ në komunitetet e ndryshme të vendit tonë.</p>
                     <div class="space-60"></div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 wow fadeIn">
                             <ul class="list-unstyled list-inline icon-bar">
                                 <li><i class="icofont icofont-id-card"></i></li>
                             </ul>
-                            <h3>Member Card</h3>
-                            <p>Lorem ipsum dolor sit amet, consecte tur adipiscing elit. Nullam ultricies eros pellentesque
+                            <h3>Kartela për anëtarë</h3>
+                            <p>Klientët tanë iu sigurohet kartela e antarësisë në momentin e regjistrimit në sistem
                             </p>
-                            <div class="space-30"></div>
                         </div>
                         <div class="col-xs-12 col-sm-6 wow fadeIn">
                             <ul class="list-unstyled list-inline icon-bar">
                                 <li><i class="icofont icofont-medal-alt"></i></li>
                             </ul>
-                            <h3>High Quality Books</h3>
-                            <p>Lorem ipsum dolor sit amet, consecte tur adipiscing elit. Nullam ultricies eros pellentesque
+                            <h3>Libra të kualitetit të lartë</h3>
+                            <p>Bibloteka jonë është e pasurar me libra të kualitetit të lartë
                             </p>
                             <div class="space-30"></div>
                         </div>
@@ -199,8 +196,8 @@
                             <ul class="list-unstyled list-inline icon-bar">
                                 <li><i class="icofont icofont-read-book-alt"></i></li>
                             </ul>
-                            <h3>Free All Books</h3>
-                            <p>Lorem ipsum dolor sit amet, consecte tur adipiscing elit. Nullam ultricies eros pellentesque
+                            <h3>Qasje për të gjithë</h3>
+                            <p>Bibloteka jonë ofron qasje për të gjithë, në cdo kohë
                             </p>
                             <div class="space-30"></div>
                         </div>
@@ -208,8 +205,8 @@
                             <ul class="list-unstyled list-inline icon-bar">
                                 <li><i class="icofont icofont-book-alt"></i></li>
                             </ul>
-                            <h3>Up To Date Books</h3>
-                            <p>Lorem ipsum dolor sit amet, consecte tur adipiscing elit. Nullam ultricies eros pellentesque
+                            <h3>Librat më të fundit</h3>
+                            <p>Në biblotekën tonë gjinden librat më të fundit, nga autorët e njohur nga bota
                             </p>
                             <div class="space-30"></div>
                         </div>
@@ -233,7 +230,7 @@
                         </ul>
                     </div>
                     <div class="space-30"></div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae est Sed non eros elementum nulla sodales ullamcorper.</p>
+                    <p>Bibloteka jonë ka kategori të ndryshme</p>
                 </div>
             </div>
             <div class="space-60"></div>
