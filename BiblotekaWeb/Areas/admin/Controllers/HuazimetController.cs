@@ -31,10 +31,12 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             _email = email;
         }
         
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var huazimet = await _context.Huazimis.Include(k => k.Klienti)
-                .Include(l => l.Libri).ToListAsync(); 
+            var huazimet = _context.Huazimis.Include(k => k.Klienti)
+                .Include(l => l.Libri)
+                .OrderByDescending(x=>x.HuazimiId)
+                .ToList(); 
             return View(huazimet);
         }
 

@@ -10,15 +10,15 @@ namespace BiblotekaWeb.Areas.admin.Models
     {
         public int AktivitetiId { get; set; }
        
-        public int PunetoriId { get; set; }
+        public int PunetoriId { get; init; }
        
-        public string KlientiId { get; set; }
+        public string KlientiId { get; init; }
        
-        public string LibriId { get; set; }
+        public string LibriId { get; init; }
        
-        public Tipet Tipi { get; set; }
+        public Tipet Tipi { get; init; }
        
-        public DateTime Data { get; set; }
+        public DateTime Data { get; init; }
        
         public virtual Klienti Klienti { get; set; }
         public virtual Libri Libri { get; set; }

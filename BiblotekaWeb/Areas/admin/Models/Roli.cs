@@ -17,7 +17,7 @@ namespace BiblotekaWeb.Areas.admin.Models
         public int RoliId { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
 
-        public string EmriRolit { get; set; }
+        public string EmriRolit { get; init; }
         
         public string Pershkrimi { get; set; }
 

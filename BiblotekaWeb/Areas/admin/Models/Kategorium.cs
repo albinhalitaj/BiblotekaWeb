@@ -15,9 +15,7 @@ namespace BiblotekaWeb.Areas.admin.Models
 
         public int KategoriaId { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
-
         public string Emertimi { get; set; }
-     
         public string Pershkrimi { get; set; }
         public int? InsertBy { get; set; }
         public DateTime? InsertDate { get; set; }

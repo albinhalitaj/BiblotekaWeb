@@ -10,19 +10,15 @@ namespace BiblotekaWeb.Areas.admin.Models
     {
         public int GjobaId { get; set; }
        
-        public string KlientiId { get; set; }
+        public string KlientiId { get; init; }
+        public string LibriId { get; init; }
+        public DateTime Data { get; init; }
         
-        public string LibriId { get; set; }
-       
-        public DateTime Data { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
-        
-        public decimal Shuma { get; set; }
-        
-        public decimal ShumaPranuar { get; set; }
-
-        public int? InsertBy { get; set; }
-        public DateTime? InsertDate { get; set; }
+        public decimal Shuma { get; init; }
+        public decimal ShumaPranuar { get; init; }
+        public int? InsertBy { get; init; }
+        public DateTime? InsertDate { get; init; }
         public int? Lub { get; set; }
         public int? Lun { get; set; }
         public DateTime? Lud { get; set; }

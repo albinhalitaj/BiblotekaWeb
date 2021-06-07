@@ -20,33 +20,27 @@ namespace BiblotekaWeb.Areas.admin.Models
        
         public string LibriId { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
-        public string Titulli { get; set; }
+        public string Titulli { get; init; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
-
-        public string Autori { get; set; }
+        public string Autori { get; init; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
-
-        public string Botuesi { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Selektoni Gjuhen")]
-        
-        public int GjuhaId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Selektoni Kategorin")]
-        
-        public int KategoriaId { get; set; }
+        public string Botuesi { get; init; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Selektoni Gjuhën")]
+        public int GjuhaId { get; init; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Selektoni Kategorinë")]
+        public int KategoriaId { get; init; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
-        public string Isbn { get; set; }
+        public string Isbn { get; init; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
-
-        public string Editioni { get; set; }
+        public string Editioni { get; init; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         public int NumriKopjeve { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         public bool Statusi { get; set; }
-        
         public string ImageName { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         [NotMapped]
-        public IFormFile Image { get; set; }
+        public IFormFile Image { get; init; }
         public int InsertBy { get; set; }
         public DateTime? InsertDate { get; set; }
         public int? Lub { get; set; }

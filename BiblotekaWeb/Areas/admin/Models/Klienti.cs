@@ -18,31 +18,31 @@ namespace BiblotekaWeb.Areas.admin.Models
         public string KlientiId { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
 
-        public string Emri { get; set; }
+        public string Emri { get; init; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
-        public string Mbiemri { get; set; }
+        public string Mbiemri { get; init; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         [DataType(DataType.Date)]
-        public DateTime Datalindjes { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Selektoni Gjinen")]
-        public string Gjinia { get; set; }
+        public DateTime Datalindjes { get; init; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Selektoni Gjininë")]
+        public string Gjinia { get; init; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
-        public string NrPersonal { get; set; }
+        [MinLength(10,ErrorMessage = "Numri personal duhet të ketë 10 numra")]
+        [MaxLength(10,ErrorMessage = "Numri personal duhet të ketë 10 numra")]
+        public string NrPersonal { get; init; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
-        [Phone]
-        public string NrKontaktues { get; set; }
+        public string NrKontaktues { get; init; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
-        public string Adresa { get; set; }
+        public string Adresa { get; init; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
-        public string Qyteti { get; set; }
+        public string Qyteti { get; init; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
-        public string Shteti { get; set; }
+        public string Shteti { get; init; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
-        
-        public string KodiPostal { get; set; }
+        public string KodiPostal { get; init; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         [EmailAddress]
-        public string Emaili { get; set; }
+        public string Emaili { get; init; }
         public int? Huazimet { get; set; }
         public int InsertBy { get; set; }
         public DateTime? InsertDate { get; set; }

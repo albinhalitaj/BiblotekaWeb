@@ -15,11 +15,10 @@ namespace BiblotekaWeb.Areas.admin.Models
        
         public int RoliId { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
-
         public string Username { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         [DataType(DataType.Password)]
-
+        [MinLength(6,ErrorMessage = "Passwordi duhet të ketë më shumë se 6 karaktere")]
         public string Password { get; set; }
         public Guid? ResetPasswordCode { get; set; }
         public string IsActive { get; set; }

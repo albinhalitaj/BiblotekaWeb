@@ -1,4 +1,5 @@
 /*
+/*
 Author       : Dreamguys
 Template Name: Preskool - Bootstrap Admin Template
 Version      : 1.0
@@ -114,7 +115,8 @@ Version      : 1.0
     if ($('.dataTable').length > 0) {
         $('.dataTable').DataTable({
             "bFilter": false,
-			"searching": true
+			"searching": true,
+			"order": [[ 0, "desc" ]]
         });
     }
     
