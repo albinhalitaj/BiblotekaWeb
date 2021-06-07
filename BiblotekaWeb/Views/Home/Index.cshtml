@@ -1,8 +1,450 @@
-﻿@{
+﻿@model BiblotekaWeb.ViewModels.HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<header class="relative" id="sc1">
+        <!-- Header-background-markup -->
+        <div class="header-bg relative home-slide">
+            <div class="item">
+                <img src="~/Client/images/slide/slider1.jpg" alt="library">
+            </div>
+            <div class="item">
+                <img src="~/Client/images/slide/slider2.jpg" alt="library">
+            </div>
+            <div class="item">
+                <img src="~/Client/images/slide/slider3.jpg" alt="library">
+            </div>
+            <div class="item">
+                <img src="~/Client/images/slide/slider4.jpg" alt="library">
+            </div>
+        </div>
+        <!-- Mainmenu-markup-start -->
+        <div class="mainmenu-area navbar-fixed-top" data-spy="affix" data-offset-top="10">
+            <nav class="navbar">
+                <div class="container">
+                    <div class="navbar-header">
+                        <div class="space-10"></div>
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainmenu">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!--Logo-->
+                        <a href="#sc1" class="navbar-left show"><img src="~/Client/images/logo.png" alt="library"></a>
+                        <div class="space-10"></div>
+                    </div>
+                    <!--Toggle-button-->
+
+                    <!--Active User-->
+                    @await Html.PartialAsync("_UserPartial");
+                    <!--Mainmenu list-->
+                    <div class="navbar-right in fade" id="mainmenu">
+                        <ul class="nav navbar-nav nav-white text-uppercase">
+                            <li class="active">
+                                <a href="#sc1">Ballina</a>
+                            </li>
+                            <li>
+                                <a href="#sc2">Rreth Nesh</a>
+                            </li>
+                            <li>
+                                <a href="#sc3">Kategoritë</a>
+                            </li>
+                            <li>
+                                <a href="#sc4">Stafi</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Libraria" asp-action="Index">Librat</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="space-100">
+        </div>
+        <div class="space-100"></div>
+                <div class="header-text">
+                    <div class="container">
+                        <div class="row wow fadeInUp">
+                            <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center">
+                                <div class="jumbotron">
+                                    <h1 class="text-white">Më shumë se 458,948 Libra Këtu </h1>
+                                    <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae
+                                        <br/> est Sed non eros elementum nulla sodales ullamcorper.</p>
+                                </div>
+                                <div class="title-bar white">
+                                    <ul class="list-inline list-unstyled">
+                                        <li><i class="icofont icofont-square"></i></li>
+                                        <li><i class="icofont icofont-square"></i></li>
+                                    </ul>
+                                </div>
+                                <div class="space-40"></div>
+                            </div>
+                        </div>
+                        <div class="row wow fadeInUp" data-wow-delay="0.5s">
+                            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 ">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a data-toggle="tab" href="#book">Titulli</a></li>
+                                            <li><a data-toggle="tab" href="#author">Autori</a></li>
+                                            <li><a data-toggle="tab" href="#publisher">Botuesi</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="book">
+                                                <form action="#">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" placeholder="Shkurani titullin e librit">
+                                                        <div class="input-group-btn">
+                                                            <button type="submit" class="btn btn-primary"><i class="icofont icofont-search-alt-2"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="tab-pane fade" id="author">
+                                                <form action="#">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" placeholder="Shkruani emrin e autorit">
+                                                        <div class="input-group-btn">
+                                                            <button type="submit" class="btn btn-primary"><i class="icofont icofont-search-alt-2"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="tab-pane fade" id="publisher">
+                                                <form action="#">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" placeholder="Shkruani emrin e botuesit">
+                                                        <div class="input-group-btn">
+                                                            <button type="submit" class="btn btn-primary"><i class="icofont icofont-search-alt-2"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-100"></div>
+    </header>
+
+<section class="gray-bg" id="sc2">
+        <div class="space-80"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 text-center">
+                    <h2>About <strong>Us</strong></h2>
+                    <div class="space-20"></div>
+                    <div class="title-bar blue">
+                        <ul class="list-inline list-unstyled">
+                            <li><i class="icofont icofont-square"></i></li>
+                            <li><i class="icofont icofont-square"></i></li>
+                        </ul>
+                    </div>
+                    <div class="space-30"></div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae est Sed non eros elementum nulla sodales ullamcorper.</p>
+                </div>
+            </div>
+            <div class="space-60"></div>
+            <div class="row">
+                <div class="hidden-xs hidden-sm col-sm-5 pull-right  wow fadeInRight">
+                    <div class="space-60"></div>
+                    <div class="my-slider">
+                        <ul>
+                            <li><img src="~/Client/images/about-slide/slide1.jpg" alt="library"></li>
+                            <li><img src="~/Client/images/about-slide/slide2.jpg" alt="library"></li>
+                            <li><img src="~/Client/images/about-slide/slide3.jpg" alt="library"></li>
+                            <li><img src="~/Client/images/about-slide/slide4.jpg" alt="library"></li>
+                            <li><img src="~/Client/images/about-slide/slide5.jpg" alt="library"></li>
+                            <li><img src="~/Client/images/about-slide/slide6.jpg" alt="library"></li>
+                        </ul>
+                    </div>
+                    <div class="mama"></div>
+                </div>
+                <div class="col-xs-12 col-md-7">
+                    <ul class="list-unstyled list-inline text-yellow tip">
+                        <li><i class="icofont icofont-square"></i></li>
+                        <li><i class="icofont icofont-square"></i></li>
+                        <li><i class="icofont icofont-square"></i></li>
+                    </ul>
+                    <div class="space-15"></div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies eros pellentesque eros interdum, a efficitur tellus malesuada. Nunc non metus quis elit dictum ultricies. Quisque ultricies aliquam arcu.</p>
+                    <div class="space-60"></div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 wow fadeIn">
+                            <ul class="list-unstyled list-inline icon-bar">
+                                <li><i class="icofont icofont-id-card"></i></li>
+                            </ul>
+                            <h3>Member Card</h3>
+                            <p>Lorem ipsum dolor sit amet, consecte tur adipiscing elit. Nullam ultricies eros pellentesque
+                            </p>
+                            <div class="space-30"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 wow fadeIn">
+                            <ul class="list-unstyled list-inline icon-bar">
+                                <li><i class="icofont icofont-medal-alt"></i></li>
+                            </ul>
+                            <h3>High Quality Books</h3>
+                            <p>Lorem ipsum dolor sit amet, consecte tur adipiscing elit. Nullam ultricies eros pellentesque
+                            </p>
+                            <div class="space-30"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 wow fadeIn">
+                            <ul class="list-unstyled list-inline icon-bar">
+                                <li><i class="icofont icofont-read-book-alt"></i></li>
+                            </ul>
+                            <h3>Free All Books</h3>
+                            <p>Lorem ipsum dolor sit amet, consecte tur adipiscing elit. Nullam ultricies eros pellentesque
+                            </p>
+                            <div class="space-30"></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 wow fadeIn">
+                            <ul class="list-unstyled list-inline icon-bar">
+                                <li><i class="icofont icofont-book-alt"></i></li>
+                            </ul>
+                            <h3>Up To Date Books</h3>
+                            <p>Lorem ipsum dolor sit amet, consecte tur adipiscing elit. Nullam ultricies eros pellentesque
+                            </p>
+                            <div class="space-30"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="space-60"></div>
+    </section>
+    <section id="sc3">
+        <div class="space-80"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 text-center">
+                    <h2>Kategoritë <strong>Tona</strong></h2>
+                    <div class="space-20"></div>
+                    <div class="title-bar blue">
+                        <ul class="list-inline list-unstyled">
+                            <li><i class="icofont icofont-square"></i></li>
+                            <li><i class="icofont icofont-square"></i></li>
+                        </ul>
+                    </div>
+                    <div class="space-30"></div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae est Sed non eros elementum nulla sodales ullamcorper.</p>
+                </div>
+            </div>
+            <div class="space-60"></div>
+            <div class="row text-center">
+                @foreach (var kategori in Model.Kategorite)
+                {
+                    <div class="col-xs-12 col-sm-6 col-md-3 wow fadeInLeft" data-wow-delay="0.1s">
+                        <div class="category-item well blue text-cetnr">
+                            <div class="category_icon">
+                                <i class="icofont icofont-ebook"></i>
+                            </div>
+                            <div class="space-20"></div>
+                            <div class="title-bar">
+                                <ul class="list-inline list-unstyled">
+                                    <li><i class="icofont icofont-square"></i></li>
+                                </ul>
+                            </div>
+                            <div class="space-20"></div>
+                            <a href="#">@kategori.Emertimi</a>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="space-60"></div>
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <a href="#" class="btn btn-primary">Shiko më shumë</a>
+                </div>
+            </div>
+            <div class="space-80"></div>
+        </div>
+    </section>
+    
+    <section class="relative fix" id="sc3">
+            <div class="overlay-bg blue">
+                <img src="~/Client/images/blur-bg.jpg" alt="library">
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6 book-list-position padding60  ">
+                        <div class="book-list-photo">
+                            <div class="book-list">
+                                @foreach (var foto in Model.Librat)
+                                {
+                                    <div class="book_item">
+                                        <img src="~/Admin/img/bookImages/@foto.ImageName" alt="library" width="274" height="411">
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="bookslide_nav">
+                            <i class="icofont icofont-long-arrow-left testi_prev"></i>
+                            <i class="icofont icofont-long-arrow-right testi_next"></i>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 pull-right col-md-6 padding60 gray-bg wow fadeInRight">
+                        <div class="space-60"></div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-md-6">
+                                <h2>Librat <strong>Tonë</strong></h2>
+                                <div class="space-10"></div>
+                                <div class="title-bar left blue">
+                                    <ul class="list-inline list-unstyled">
+                                        <li><i class="icofont icofont-square"></i></li>
+                                        <li><i class="icofont icofont-square"></i></li>
+                                    </ul>
+                                </div>
+                                <div class="space-20"></div>
+                            </div>
+                        </div>
+                        <div class="space-20"></div>
+                        <div class="book-content">
+                            <div class="book-details">
+                                @foreach (var liber in Model.Librat)
+                                {
+                                    <div class="book-details-item">
+                                    <h4 class="tip-left">Titulli</h4>
+                                    <p class="lead">@liber.Titulli</p>
+                                    <div class="space-10"></div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-8">
+                                            <h4 class="tip-left">Autori</h4>
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <img src="~/Client/images/author.png" class="media-object author-photo img-thumbnail" alt="library">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h5>@liber.Autori</h5>
+                                                    <p>@liber.Isbn</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-4">
+                                            <h4>Gjuha</h4>
+                                            <p>@liber.Gjuha.Emertimi</p>
+                                        </div>
+                                    </div>
+                                    <div class="space-30"></div>
+                                    <div class="space-20"></div>
+                                    <h4 class="tip-left">Rating</h4>
+                                    <ul class="list-inline list-unstyled rating-star">
+                                        <li class="active"><i class="icofont icofont-star"></i></li>
+                                        <li class="active"><i class="icofont icofont-star"></i></li>
+                                        <li class="active"><i class="icofont icofont-star"></i></li>
+                                        <li class=""><i class="icofont icofont-star"></i></li>
+                                        <li><i class="icofont icofont-star"></i></li>
+                                    </ul>
+                                    <div class="space-20"></div>
+                                    <a href="#" class="btn btn-primary hover-btn-default">Shiko Librin</a>
+                                    <a href="#" class="btn btn-primary hover-btn-default">Lexo më vonë</a>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="space-60"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <section id="sc4">
+        <div class="space-80"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 text-center">
+                    <h2>Stafi <strong>Ynë</strong></h2>
+                    <div class="space-20"></div>
+                    <div class="title-bar blue">
+                        <ul class="list-inline list-unstyled">
+                            <li><i class="icofont icofont-square"></i></li>
+                            <li><i class="icofont icofont-square"></i></li>
+                        </ul>
+                    </div>
+                    <div class="space-30"></div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae est Sed non eros elementum nulla sodales ullamcorper.</p>
+                </div>
+            </div>
+            <div class="space-60"></div>
+            <div class="row team_slide text-center">
+                @foreach (var staf in Model.Stafi)
+                {
+                    <div class="col-xs-12">
+                        <div class="well single-team">
+                            <h4>@staf.Emri @staf.Mbiemri</h4>
+                            <span>@staf.Perdoruesis.FirstOrDefault().Roli.EmriRolit</span>
+                            <div class="space-10"></div>
+                            <ul class="list-inline list-unstyled social-list">
+                                <li><a href="#"><i class="icofont icofont-social-facebook"></i></a></li>
+                                <li><a href="#"><i class="icofont icofont-social-twitter"></i></a></li>
+                                <li><a href="#"><i class="icofont icofont-social-behance"></i></a></li>
+                                <li><a href="#"><i class="icofont icofont-brand-linkedin"></i></a></li>
+                            </ul>
+                            <div class="space-20"></div>
+                            <div class="title-bar">
+                                <ul class="list-inline list-unstyled">
+                                    <li><i class="icofont icofont-square"></i></li>
+                                </ul>
+                            </div>
+                            <div class="space-20"></div>
+                            <div class="team-member-photo relative">
+                                <img src="~/Admin/img/user.png" alt="library">
+                                <div class="team_overlay_icon">
+                                    <a href="books.html" class="btn btn-default">Shiko Profilin</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="space-80"></div>
+    </section>
+    <section class="bg-primary relative">
+        <div class="space-80"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-7">
+                    <h2 class="text-white">Le ta marrim <strong>librin tuaj</strong></h2>
+                    <div class="space-20"></div>
+                    <div class="title-bar left white">
+                        <ul class="list-inline list-unstyled">
+                            <li><i class="icofont icofont-square"></i></li>
+                            <li><i class="icofont icofont-square"></i></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="space-60"></div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-7">
+                    <form action="#">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="form-group">
+                                    <label for="name">Emri</label>
+                                    <input type="text" id="name" class="form-control bg-none" placeholder="Shkruani emrin tuaj...">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="form-group">
+                                    <label for="email">Emaili</label>
+                                    <input type="email" id="email" class="form-control bg-none" placeholder="Shkruani emailin tuaj...">
+                                </div>
+                            </div>
+                            <div class="space-20"></div>
+                            <div class="col-xs-12 col-sm-6">
+                                <button type="submit" class="btn btn-default">Dërgo <i class="fa fa-long-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="space-80"></div>
+    </section>

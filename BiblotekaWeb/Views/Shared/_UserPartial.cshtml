@@ -1,0 +1,28 @@
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="nav navbar-right">
+        <div class="active-user navbar-left active">
+            <ul class="list-unstyled">
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="~/Admin/img/user.png" class="img-circle img-thumbnail" alt="library" />
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a asp-area="admin" asp-controller="Account" asp-action="Profili"><span><i class="icofont icofont-user"></i></span> Profili</a>
+                        </li>
+                        <li>
+                            <a asp-area="admin" asp-controller="Stafi" asp-action="Index"><span><i class="icofont icofont-notification"></i></span> Stafi</a>
+                        </li>
+                        <li>
+                            <a asp-area="admin" asp-controller="Libri" asp-action="Index"><span><i class="icofont icofont-read-book"></i></span> Libraria</a>
+                        </li>
+                        <li>
+                            <a asp-area="admin" asp-controller="Account" asp-action="SignOut"><span><i class="icofont icofont-logout"></i></span> Dil</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+}

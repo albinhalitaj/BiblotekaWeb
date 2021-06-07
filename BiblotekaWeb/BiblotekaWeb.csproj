@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Admin\img\bookImages" />
+    <Folder Include="wwwroot\Client" />
     <Folder Include="wwwroot\Rotativa" />
   </ItemGroup>
 

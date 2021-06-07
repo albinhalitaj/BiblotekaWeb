@@ -1,48 +1,109 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿<!doctype html>
+<html class="no-js" lang="zxx">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BiblotekaWeb</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Home</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="apple-touch-icon" href="~/Client/images/apple-touch-icon.png">
+    <link rel="shortcut icon" type="image/ico" href="~/Client/images/favicon.ico" />
+
+    <!-- Plugin-CSS -->
+    <link rel="stylesheet" href="~/Client/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Client/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Client/css/icofont.css">
+    <link rel="stylesheet" href="~/Client/css/animate.css">
+    <link rel="stylesheet" href="~/Client/css/cardslider.css">
+    <link rel="stylesheet" href="~/Client/css/responsiveslides.css">
+
+    <!-- Main-Stylesheets -->
+    <link rel="stylesheet" href="~/Client/css/normalize.css">
+    <link rel="stylesheet" href="~/Client/css/overright.css">
+    <link rel="stylesheet" href="~/Client/css/theme.css">
+    <link rel="stylesheet" href="~/Client/css/style.css">
+    <link rel="stylesheet" href="~/Client/css/responsive.css">
+    <script src="~/Client/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BiblotekaWeb</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+
+<body data-spy="scroll" data-target="#mainmenu" data-offset="50">
+        <!-- Mainmenu-markup-end -->
+    @RenderBody()
+     
+<footer class="black-bg text-white">
+        <div class="space-60"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    <a href="#"><img src="~/Client/images/logo.png" alt="library"></a>
+                    <div class="space-20"></div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut gravida, quam vitae est Sed non eros elementum nulla sodales ullamcorper.</p>
+                    <div class="space-10"></div>
+                    <ul class="list-inline list-unstyled social-list">
+                        <li><a href="#"><i class="icofont icofont-social-facebook"></i></a></li>
+                        <li><a href="#"><i class="icofont icofont-social-twitter"></i></a></li>
+                        <li><a href="#"><i class="icofont icofont-social-behance"></i></a></li>
+                        <li><a href="#"><i class="icofont icofont-brand-linkedin"></i></a></li>
+                    </ul>
+                    <div class="space-10"></div>
+                    <ul class="list-unstyled list-inline tip yellow">
+                        <li><i class="icofont icofont-square"></i></li>
+                        <li><i class="icofont icofont-square"></i></li>
+                        <li><i class="icofont icofont-square"></i></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1">
+                    <h4 class="text-white">Kontakto</h4>
+                    <div class="space-20"></div>
+                    <table class="table border-none addr-dt">
+                        <tr>
+                            <td><i class="icofont icofont-social-google-map"></i></td>
+                            <td><address>Brigada 123, 10000, Prishtinë Kosovë</address></td>
+                        </tr>
+                        <tr>
+                            <td><i class="icofont icofont-email"></i></td>
+                            <td>stafbibloteka@gmail.com</td>
+                        </tr>
+                        <tr>
+                            <td><i class="icofont icofont-phone"></i></td>
+                            <td>+383 49 258 491</td>
+                        </tr>
+                        <tr>
+                            <td><i class="icofont icofont-globe-alt"></i></td>
+                            <td><a href="#" target="_blank">e Bibloteka</a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3 col-md-offset-1">
+                    <h4 class="text-white">Linqet e përdorura</h4>
+                    <div class="space-20"></div>
+                    <ul class="list-unstyled menu-tip">
+                        <li><a href="books.html">Shërbimi për konsumatorë</a></li>
+                        <li><a href="books.html">Tavolina e ndihmës</a></li>
+                        <li><a href="books.html">Forumi</a></li>
+                        <li><a href="books.html">Stafi</a></li>
                     </ul>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - BiblotekaWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
+        <div class="space-60"></div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+<!-- Vandor-JS -->
+    <script src="~/Client/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="~/Client/js/vendor/bootstrap.min.js"></script>
+    <!-- Plugin-JS -->
+    <script src="~/Client/js/owl.carousel.min.js"></script>
+    <script src="~/Client/js/responsiveslides.min.js"></script>
+    <script src="~/Client/js/jquery.cardslider.min.js"></script>
+    <script src="~/Client/js/pagination.js"></script>
+    <script src="~/Client/js/scrollUp.min.js"></script>
+    <script src="~/Client/js/wow.min.js"></script>
+    <script src="~/Client/js/plugins.js"></script>
+    <!-- Active-JS -->
+    <script src="~/Client/js/main.js"></script>
 </body>
+
 </html>
