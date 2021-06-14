@@ -91,6 +91,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             klienti.Lub = Convert.ToInt32(User.Claims.ElementAt(1).Value);
             klienti.Lud = DateTime.Now;
             klienti.KlientiId = id;
+            klienti.Huazimet = klient.Huazimet;
             klienti.InsertBy = klient.InsertBy;
             klienti.InsertDate = klient.InsertDate;
             _klientiService.PerditesoKlient(klienti);
