@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using BiblotekaWeb.Areas.admin.ViewModels;
 using Microsoft.Data.SqlClient;
 using Dapper;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Configuration;
 
 namespace BiblotekaWeb.Areas.admin.Controllers
@@ -90,8 +89,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
             _context.Stafis.Remove(stafi);
             _context.SaveChanges();
             _notyf.Custom("Stafi u fshi me sukses!", 5, "#FFBC53", "fa fa-check");
-            HttpContext.SignOutAsync();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Stafi");
         }
         
         

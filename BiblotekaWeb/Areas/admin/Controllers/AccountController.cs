@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.EntityFrameworkCore;
 
 namespace BiblotekaWeb.Areas.admin.Controllers

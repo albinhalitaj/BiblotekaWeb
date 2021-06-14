@@ -113,6 +113,7 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         }
 
         [HttpPost]
+        [Route("admin/libri/delete/{id}")]
         public IActionResult Delete(string id)
         {
             if (id == null)

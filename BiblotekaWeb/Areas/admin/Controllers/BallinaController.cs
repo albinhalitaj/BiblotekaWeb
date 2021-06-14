@@ -30,9 +30,12 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         public IActionResult Index()
         {
             var klientet = _context.Klientis.OrderByDescending(x => x.Huazimet).Take(7).ToList();
-            var aktivitet = _context.Aktivitetis.OrderByDescending(x => x.AktivitetiId).Include(x => x.Klienti)
-                .Include(x => x.Libri).Take(6).ToList();
-            var model = new BallinaViewModel()
+            var aktivitet = _context.Aktivitetis.OrderByDescending(x => x.AktivitetiId)
+                        .Include(x => x.Klienti)
+                        .Include(x => x.Libri)
+                        .Take(6)
+                        .ToList();
+            var model = new BallinaViewModel
             {
                 Klientet = klientet,
                 Aktivitetet = aktivitet

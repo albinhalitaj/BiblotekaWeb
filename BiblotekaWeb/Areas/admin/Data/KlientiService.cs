@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BiblotekaWeb.Areas.admin.Models;
 
@@ -37,11 +38,20 @@ namespace BiblotekaWeb.Areas.admin.Data
 
         public bool DeleteKlient(string id)
         {
+            var status = false;
             var klienti = _context.Klientis.FirstOrDefault(x => x.KlientiId == id);
-            if (klienti == null) return false;
-            _context.Klientis.Remove(klienti);
-            _context.SaveChanges();
-            return true;
+            if (klienti == null) return status;
+            try
+            {
+                _context.Klientis.Remove(klienti);
+                _context.SaveChanges();
+                status = true;
+            }
+            catch (Exception e)
+            {
+                status = false;
+            }
+            return status;
         }
 
         public Stafi GetStafi(int id)

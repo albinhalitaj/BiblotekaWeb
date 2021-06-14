@@ -17,6 +17,9 @@ namespace BiblotekaWeb.Areas.admin.Models
         public string KlientiId { get; init; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Kjo fushë është e obligueshme")]
         public int NumriKopjeve { get; init; }
+        
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Selekto datën e huazimit")]
+        [DataType(DataType.Date)] 
         public DateTime DataHuazimi { get; init; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Selekto datën e kthimit")]
         [DataType(DataType.Date)]

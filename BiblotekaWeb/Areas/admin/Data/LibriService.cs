@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BiblotekaWeb.Areas.admin.Models;
 using Microsoft.EntityFrameworkCore;
@@ -44,9 +45,16 @@ namespace BiblotekaWeb.Areas.admin.Data
             var status = false;
             if (libri != null)
             {
-                _context.Libris.Remove(libri);
-                _context.SaveChanges();
-                status = true;
+                try
+                {
+                    _context.Libris.Remove(libri);
+                    _context.SaveChanges();
+                    status = true;
+                }
+                catch (Exception)
+                {
+                    status = false;
+                }
             }
             return status;
         }

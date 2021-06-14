@@ -51,7 +51,7 @@
                                                 <a asp-action="Edito" asp-route-id="@kategori.KategoriaId" class="btn btn-sm bg-success-light mr-2">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
-                                                <a asp-action="Fshi" asp-route-id="@kategori.KategoriaId" class="btn btn-sm bg-danger-light">
+                                                <a onclick="showPopUp('@kategori.KategoriaId')" class="btn btn-sm bg-danger-light">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
                                             </div>
@@ -70,5 +70,51 @@
         <p>Copyright © 2021 Menaxhimi i Biblotekes.</p>
     </footer>
 </div>
+
+<script type="text/javascript">
+function showPopUp(kategoriaId) {
+        window.Swal.fire({
+            title: 'A jeni i sigurtë?',
+            text: "Nuk mund ta ktheni këtë hap!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Po, fshije!',
+            cancelButtonText: 'Anulo'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/kategoria/fshi/" + kategoriaId,
+                    data: kategoriaId,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data === true) {
+                            window.Swal.fire(
+                                'U Fshi!',
+                                'Rekordi është fshirë.',
+                                'success'
+                            ).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            });
+                        }
+                        if (data === false){
+                            window.Swal.fire({
+                                  icon: 'error',
+                                  title: 'Oops...',
+                                  text: 'Kjo kategori nuk mundë të fshihet',
+                                  footer: '<a href="">Pse është ky gabim?</a>'
+                                })
+                        }
+                    },
+                })
+           }
+        })
+    }
+</script>
 
 

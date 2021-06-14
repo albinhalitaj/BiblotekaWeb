@@ -87,13 +87,19 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         public  IActionResult Fshi(int id)
         {
             var kategoria = _context.Kategoria.FirstOrDefault(x => x.KategoriaId == id);
-            if (kategoria!=null)
+            var status = false;
+            if (kategoria == null) return Json(status);
+            try
             {
                 _context.Kategoria.Remove(kategoria);
                 _context.SaveChanges();
-                _notyf.Custom("Kategoria u fshi me sukses!", 5, "#FFBC53","fa fa-check");
+                status = true;
             }
-            return RedirectToAction(nameof(Index));
+            catch (Exception)
+            {
+                status = false;
+            }
+            return Json(status);
         }
     }
 }

@@ -112,7 +112,7 @@ function showPopUp(klientiId) {
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (data) {
-                        if (data) {
+                        if (data === true) {
                             window.Swal.fire(
                                 'U Fshi!',
                                 'Rekordi është fshirë.',
@@ -122,8 +122,16 @@ function showPopUp(klientiId) {
                                     location.reload();
                                 }
                             });
-                        };
-                    }
+                        }
+                        if (data === false){
+                            window.Swal.fire({
+                                  icon: 'error',
+                                  title: 'Oops...',
+                                  text: 'Ky klient nuk mundë të fshihet',
+                                  footer: '<a href="">Pse është ky gabim?</a>'
+                                })
+                        }
+                    },
                 });
             }
         });

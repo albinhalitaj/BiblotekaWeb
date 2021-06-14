@@ -44,10 +44,10 @@ $(document).ready(function () {
        method: "GET",
        dataType: "json",
        success: function (data) {
-           var huazimet = data.huazimetData;
-           var kthimet = data.kthimetData;
-           var kategorite = data.kategoriteData;
-           var mapDatas = data.mapDatas;
+           const huazimet = data.huazimetData;
+           const kthimet = data.kthimetData;
+           const kategorite = data.kategoriteData;
+           const mapDatas = data.mapDatas;
            var data = [];
            mapDatas.forEach(element => {
                data.push({"hc-key": element.kodi, value: element.numri});
@@ -163,9 +163,13 @@ $(document).ready(function () {
                data: []
            }
            
-           for (var i = 0; i < kategorite.length; i++){
-               series.data.push({name: kategorite[i].emertimi, y: kategorite[i].librat});
-           }
+           kategorite.forEach(kategori => {
+               series.data.push({name: kategori.emertimi, y: kategori.librat});
+           });
+           
+           // for (var i = 0; i < kategorite.length; i++){
+           //     series.data.push({name: kategorite[i].emertimi, y: kategorite[i].librat});
+           // }
            
            options.series.push(series);
            window.Highcharts.chart('pie',options);

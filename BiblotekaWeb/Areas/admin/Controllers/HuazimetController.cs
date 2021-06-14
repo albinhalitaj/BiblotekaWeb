@@ -34,9 +34,8 @@ namespace BiblotekaWeb.Areas.admin.Controllers
         public IActionResult Index()
         {
             var huazimet = _context.Huazimis.Include(k => k.Klienti)
-                .Include(l => l.Libri)
-                .OrderByDescending(x=>x.HuazimiId)
-                .ToList(); 
+                                                        .Include(l => l.Libri)
+                                                        .ToList();
             return View(huazimet);
         }
 
